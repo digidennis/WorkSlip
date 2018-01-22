@@ -1,0 +1,4 @@
+code                                app/code/local/Digidennis/WorkSlip/
+adminhtml/Digidennis_WorkSlip.xml   app/design/adminhtml/default/default/layout/Digidennis_WorkSlip.xml
+adminhtml/template/*                app/design/adminhtml/default/default/template/digidennis/workslip/
+Digidennis_Dkshipping.xml           app/etc/modules/Digidennis_WorkSlip.xml

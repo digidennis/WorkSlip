@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Digidennis_WorkSlip>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Digidennis_WorkSlip>
+    </modules>
+</config>
