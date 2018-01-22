@@ -49,7 +49,7 @@ $workslip = $installer->getConnection()->newTable( $installer->getTable('digiden
         'nullable' => true,
     ), 'Media Files')
     ->addForeignKey(
-        $installer->getFkName('digidennis_dimensionit/workslip', 'order_id', 'sales/order', 'entity_id'),
+        $installer->getFkName('digidennis_workslip/workslip', 'order_id', 'sales/order', 'entity_id'),
         'order_id',
         $installer->getTable('sales/order'),
         'entity_id',
