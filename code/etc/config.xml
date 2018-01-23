@@ -33,9 +33,9 @@
         </events-->
         <layout>
             <updates>
-                <employee>
+                <digidennis_workslip>
                     <file>Digidennis_WorkSlip.xml</file>
-                </employee>
+                </digidennis_workslip>
             </updates>
         </layout>
     </adminhtml>
