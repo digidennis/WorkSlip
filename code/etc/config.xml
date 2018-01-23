@@ -34,7 +34,7 @@
         <layout>
             <updates>
                 <employee>
-                    <file>employee.xml</file>
+                    <file>Digidennis_WorkSlip.xml</file>
                 </employee>
             </updates>
         </layout>

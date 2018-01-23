@@ -6,11 +6,11 @@
             <title>WorkSlip</title>
             <sort_order>1</sort_order>
             <children>
-                <example>
+                <workslipgrid>
                     <title>List</title>
                     <sort_order>1</sort_order>
                     <action>adminhtml/workslip/index</action>
-                </example>
+                </workslipgrid>
             </children>
         </digidennis>
     </menu>
@@ -18,11 +18,14 @@
         <resources>
             <admin>
                 <children>
-                    <digidennis>
-                        <digidennis translate="title" module="digidennis_workslip">
-                            <title>WorkSlip</title>
-                            <sort_order>50</sort_order>
-                        </digidennis>
+                    <digidennis translate="title" module="digidennis_workslip">
+                        <title>WorkSlip</title>
+                        <sort_order>1</sort_order>
+                        <children>
+                            <workslipgrid>
+                                <title>Workslip List</title>
+                            </workslipgrid>
+                        </children>
                     </digidennis>
                 </children>
             </admin>
