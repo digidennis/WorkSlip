@@ -38,6 +38,15 @@
                 </digidennis_workslip>
             </updates>
         </layout>
+        <translate>
+            <modules>
+                <Digidennis_WorkSlip>
+                    <files>
+                        <default>Digidennis_WorkSlip.csv</default>
+                    </files>
+                </Digidennis_WorkSlip>
+            </modules>
+        </translate>
     </adminhtml>
 
     <global>

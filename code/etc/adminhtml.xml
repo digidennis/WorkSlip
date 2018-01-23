@@ -4,7 +4,7 @@
     <menu>
         <digidennis translate="title" module="digidennis_workslip">
             <title>WorkSlip</title>
-            <sort_order>1</sort_order>
+            <sort_order>100</sort_order>
             <children>
                 <workslipgrid>
                     <title>List</title>
