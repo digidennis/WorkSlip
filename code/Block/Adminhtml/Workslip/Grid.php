@@ -56,7 +56,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
             'index'     => 'state',
             'type'  => 'options',
             'width' => '100px',
-            'options' => Mage::helper('digidennis_workslip/workslip')->getStates(),
+            'options' => Mage::helper('digidennis_workslip')->getStates(),
         ));
 
         return parent::_prepareColumns();
