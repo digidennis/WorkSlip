@@ -20,7 +20,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
 
     protected function _prepareColumns()
     {
-        $this->addColumn('id', array(
+        $this->addColumn('workslip_id', array(
             'header'    => Mage::helper('digidennis_workslip')->__('#'),
             'align'     =>'right',
             'width'     => '10px',
