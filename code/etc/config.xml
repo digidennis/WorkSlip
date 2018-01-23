@@ -12,7 +12,7 @@
             <adminhtml>
                 <args>
                     <modules>
-                        <Digidennis_WorkSlip after="Mage_Adminhtml">Digidennis_WorkSlip</Digidennis_WorkSlip>
+                        <Digidennis_WorkSlip_Adminhtml after="Mage_Adminhtml">Digidennis_WorkSlip_Adminhtml</Digidennis_WorkSlip_Adminhtml>
                     </modules>
                 </args>
             </adminhtml>
