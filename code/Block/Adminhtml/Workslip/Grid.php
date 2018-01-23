@@ -31,6 +31,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
             'header'    => Mage::helper('digidennis_workslip')->__('Created'),
             'align'     =>'center',
             'index'     => 'create_date',
+            'type'      => 'datetime',
             'width'     => '50px',
         ));
 
@@ -38,6 +39,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
             'header'    => Mage::helper('digidennis_workslip')->__('Estimated to'),
             'align'     =>'center',
             'index'     => 'estimateddone_date',
+            'type'     => 'datetime',
             'width'     => '50px',
         ));
 
@@ -52,9 +54,16 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
             'header'    => Mage::helper('digidennis_workslip')->__('State'),
             'align'     =>'center',
             'index'     => 'state',
-            'width'     => '80px',
+            'type'  => 'options',
+            'width' => '100px',
+            'options' => Mage::helper('digidennis_workslip/workslip')->getStates(),
         ));
 
         return parent::_prepareColumns();
+    }
+
+    public function getRowUrl($row)
+    {
+        return $this->getUrl('*/*/edit', array('id' => $row->getId()));
     }
 }
