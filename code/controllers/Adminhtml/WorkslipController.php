@@ -7,6 +7,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
     {
         $this->_title($this->__('WorkSlip'))->_title($this->__('List'));
         $this->loadLayout();
+       var_dump($this->getLayout()->getUpdate()->getHandles());
         $this->_setActiveMenu('digidennis/workslipgrid');
         $this->_addContent($this->getLayout()->createBlock('digidennis_workslip/adminhtml_workslip'));
         $this->renderLayout();
