@@ -19,4 +19,39 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
             $this->getLayout()->createBlock('digidennis_workslip/adminhtml_workslip_grid')->toHtml()
         );
     }
+
+    public function editAction()
+    {
+        $id = $this->getRequest()->getParam('workslip_id');
+        $workslip = Mage::getModel('digidennis_workslip/workslip')->load($id);
+
+        if ($workslip->getWorkslipId() || $id == 0)
+        {
+            Mage::register('films_data', $workslip);
+
+            $this->loadLayout();
+            $this->_setActiveMenu('digidennis/workslipgrid');
+            $this->_addBreadcrumb('WorkSlip', 'WorkSlip');
+            $this->_addBreadcrumb('Edit', 'Edit');
+
+            $this->getLayout()->getBlock('head')
+                ->setCanLoadExtJs(true);
+            $this->_addContent($this->getLayout()
+                ->createBlock('digidennis_workslip/adminhtml_workslip_edit'));
+                /*->_addLeft($this->getLayout()
+                    ->createBlock('pfay_films/adminhtml_films_edit_tabs')
+                );*/
+            $this->renderLayout();
+        }
+        else
+        {
+            Mage::getSingleton('adminhtml/session')->addError('WorkSlip does not exist');
+            $this->_redirect('*/*/');
+        }
+    }
+
+    public function newAction()
+    {
+        $this->_forward('edit');
+    }
 }
