@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <layout version="0.1.0">
-    <digidennis_workslip_workslip_index>
+    <digidennis_workslip_adminhtml_workslip_index>
         <reference name="content">
             <block type="digidennis_workslip/adminhtml_workslip" name="workslip" />
         </reference>
-    </digidennis_workslip_workslip_index>
+    </digidennis_workslip_adminhtml_workslip_index>
 </layout>
