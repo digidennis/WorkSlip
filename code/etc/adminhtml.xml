@@ -19,12 +19,10 @@
             <admin>
                 <children>
                     <digidennis>
-                        <children>
-                            <checkoutagreement translate="title" module="digidennis_workslip">
-                                <title>WorkSlip</title>
-                                <sort_order>50</sort_order>
-                            </checkoutagreement>
-                        </children>
+                        <digidennis translate="title" module="digidennis_workslip">
+                            <title>WorkSlip</title>
+                            <sort_order>50</sort_order>
+                        </digidennis>
                     </digidennis>
                 </children>
             </admin>
