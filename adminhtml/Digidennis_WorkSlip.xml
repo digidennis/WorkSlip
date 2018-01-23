@@ -4,7 +4,9 @@
     <adminhtml_workslip_index>
         <reference name="content">
             <block type="digidennis_workslip/adminhtml_workslip" name="workslip" />
-            <block type="adminhtml/sales_order_create_items" name="sales.order.create.items" />
+            <block type="adminhtml/sales_order_create_items" template="sales/order/create/items.phtml" name="items">
+                <block type="adminhtml/sales_order_create_items_grid" template="sales/order/create/items/grid.phtml" name="items_grid"></block>
+            </block>
         </reference>
     </adminhtml_workslip_index>
 
