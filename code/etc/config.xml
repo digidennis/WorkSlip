@@ -43,7 +43,7 @@
     <global>
         <blocks>
             <digidennis_workslip>
-                <class>Digidennis_WorkSlip.xml</class>
+                <class>Digidennis_WorkSlip_Block</class>
             </digidennis_workslip>
         </blocks>
         <models>
