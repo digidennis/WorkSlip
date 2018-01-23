@@ -7,6 +7,18 @@
         </Digidennis_WorkSlip>
     </modules>
 
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <Digidennis_WorkSlip after="Mage_Adminhtml">Digidennis_WorkSlip</Digidennis_WorkSlip>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+
     <adminhtml>
         <!--events>
             <sales_order_shipment_save_before>
