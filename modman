@@ -2,4 +2,4 @@ code                                        app/code/local/Digidennis/WorkSlip/
 adminhtml/Digidennis_WorkSlip.xml           app/design/adminhtml/default/default/layout/Digidennis_WorkSlip.xml
 adminhtml/template/*                        app/design/adminhtml/default/default/template/digidennis/workslip/
 Digidennis_WorkSlip.xml                     app/etc/modules/Digidennis_WorkSlip.xml
-translations/da_DK/Digidennis_WorkSlip.csv  app/local/da_DK/Digidennis_WorkSlip.csv
+translations/da_DK/Digidennis_WorkSlip.csv  app/locale/da_DK/Digidennis_WorkSlip.csv
