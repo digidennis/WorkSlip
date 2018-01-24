@@ -58,7 +58,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
                 $workslipModel = Mage::getModel('digidennis_workslip/workslip');
 
                 if( $this->getRequest()->getParam('id') <= 0 ) {
-                    $workslipModel->setCreateDate( Mage::getSingleton('core/date')->gmtDate() );
+                    $workslipModel->setCreateDate( Mage::getSingleton('core/date')->gmtDate(now()) );
                     $workslipModel
                         ->addData($postData)
                         ->save();
