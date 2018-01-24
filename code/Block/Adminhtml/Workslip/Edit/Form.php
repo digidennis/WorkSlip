@@ -6,7 +6,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
     {
         $form = new Varien_Data_Form(
             array(
-                'id' => 'workslipEditForm',
+                'id' => 'edit_form',
                 'action' => $this->getUrl('*/*/save', array('workslip_id' => $this->getRequest()->getParam('workslip_id'))
                 ),
                 'method' => 'post',
