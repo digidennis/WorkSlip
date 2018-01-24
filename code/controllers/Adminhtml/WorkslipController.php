@@ -26,7 +26,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
 
         if ($workslip->getWorkslipId() || $id == 0)
         {
-            Mage::register('films_data', $workslip);
+            Mage::register('workslip_data', $workslip);
 
             $this->loadLayout();
             $this->_setActiveMenu('digidennis/workslipgrid');
@@ -58,7 +58,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
                 $workslipModel = Mage::getModel('digidennis_workslip/workslip');
 
                 if( $this->getRequest()->getParam('workslip_id') <= 0 ) {
-                    $workslipModel->setCreatedAt( Mage::getSingleton('core/date')->utcDate() );
+                    $workslipModel->setCreatedAt( Mage::getSingleton('core/date')->gmtDate() );
                     $workslipModel
                         ->addData($postData)
                         ->setWorkslipId($this->getRequest()->getParam('workslip_id'))
