@@ -21,7 +21,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
 
     public function editAction()
     {
-        $id = $this->getRequest()->getParam('workslip_id');
+        $id = $this->getRequest()->getParam('id');
         $workslip = Mage::getModel('digidennis_workslip/workslip')->load($id);
 
         if ($workslip->getWorkslipId() || $id == 0)
@@ -57,11 +57,10 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
                 $postData = $this->getRequest()->getPost();
                 $workslipModel = Mage::getModel('digidennis_workslip/workslip');
 
-                if( $this->getRequest()->getParam('workslip_id') <= 0 ) {
-                    $workslipModel->setCreatedAt( Mage::getSingleton('core/date')->gmtDate() );
+                if( $this->getRequest()->getParam('id') <= 0 ) {
+                    $workslipModel->setCreateDate( Mage::getSingleton('core/date')->gmtDate() );
                     $workslipModel
                         ->addData($postData)
-                        ->setWorkslipId($this->getRequest()->getParam('workslip_id'))
                         ->save();
 
                     Mage::getSingleton('adminhtml/session')->addSuccess('successfully saved');
@@ -74,7 +73,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
 
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setWorkslipData($this->getRequest()->getPost());
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('workslip_id')));
+                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
                 return;
             }
 
