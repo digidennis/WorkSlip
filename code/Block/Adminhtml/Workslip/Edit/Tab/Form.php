@@ -58,14 +58,14 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
             ));
 
         $workfieldset = $form->addFieldset('theWorkFieldset', array('legend'=> $this->__('The Work')));
-        $workfieldset->addField('estimateddone_date', 'datetime',
+        $workfieldset->addField('estimateddone_date', 'date',
             array(
                 'label' => $this->__('Estimated Done Date'),
                 'class' => 'required-entry',
                 'required' => true,
                 'name' => 'estimateddone_date',
                 'image' => $this->getSkinUrl('images/grid-cal.gif'),
-                'format' => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
+                'format' =>  Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
             ));
         $workfieldset->addField('whattodo', 'textarea',
             array(
