@@ -6,7 +6,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tabs extends Mage_Adminh
     {
         parent::__construct();
         $this->setId('workslipTabs');
-        $this->setDestElementId('workslipEditForm');
+        $this->setDestElementId('edit_form');
         $this->setTitle($this->__('WorkSlip'));
     }
 
