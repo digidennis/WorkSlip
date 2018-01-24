@@ -85,4 +85,24 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
     {
         $this->_forward('edit');
     }
+
+    public function deleteAction()
+    {
+        if($this->getRequest()->getParam('id') > 0)
+        {
+            try
+            {
+                $model = Mage::getModel('digidennis_workslip/workslip');
+                $model->setId($this->getRequest()->getParam('id'))->delete();
+                Mage::getSingleton('adminhtml/session')->addSuccess('successfully deleted');
+                $this->_redirect('*/*/');
+            }
+            catch (Exception $e)
+            {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+            }
+        }
+        $this->_redirect('*/*/');
+    }
 }
