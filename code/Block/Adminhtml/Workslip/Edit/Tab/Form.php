@@ -67,7 +67,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
                 'image' => $this->getSkinUrl('images/grid-cal.gif'),
                 'format' => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
             ));
-        $workfieldset->addField('whattodo', 'multiline',
+        $workfieldset->addField('whattodo', 'textarea',
             array(
                 'label' => $this->__('What To Do'),
                 'class' => 'required-entry',
