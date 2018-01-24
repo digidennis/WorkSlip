@@ -49,6 +49,39 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
         }
     }
 
+    public function saveAction()
+    {
+        if ($this->getRequest()->getPost())
+        {
+            try {
+                $postData = $this->getRequest()->getPost();
+                $workslipModel = Mage::getModel('digidennis_workslip/workslip');
+
+                if( $this->getRequest()->getParam('workslip_id') <= 0 ) {
+                    $workslipModel->setCreatedAt( Mage::getSingleton('core/date')->utcDate() );
+                    $workslipModel
+                        ->addData($postData)
+                        ->setWorkslipId($this->getRequest()->getParam('workslip_id'))
+                        ->save();
+
+                    Mage::getSingleton('adminhtml/session')->addSuccess('successfully saved');
+                    Mage::getSingleton('adminhtml/session')->setWorkslipData(false);
+                    $this->_redirect('*/*/');
+                    return;
+                }
+
+            } catch (Exception $e) {
+
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                Mage::getSingleton('adminhtml/session')->setWorkslipData($this->getRequest()->getPost());
+                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('workslip_id')));
+                return;
+            }
+
+            $this->_redirect('*/*/');
+        }
+    }
+
     public function newAction()
     {
         $this->_forward('edit');
