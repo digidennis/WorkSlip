@@ -11,7 +11,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setData(array(
                 'label'   => Mage::helper('core')->__('Import from customer'),
-                'onclick' =>"setLocation('{$this->getUrl('*/*/registeremail')}'');",
+                'onclick' =>"setLocation('{$this->getUrl('*/*/importcustomer')}');",
                 'class'   => 'add',
             ));
         $button->setName('import_customer');
