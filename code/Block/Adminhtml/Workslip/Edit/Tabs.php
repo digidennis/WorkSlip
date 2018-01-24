@@ -14,7 +14,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tabs extends Mage_Adminh
     {
         $this->addTab('form_section', array(
             'label' => $this->__('WorkSlip'),
-            'title' => $this->__('WorkSlip'),
+            'title' => $this->__('General'),
             'content' => $this->getLayout()
                 ->createBlock('digidennis_workslip/adminhtml_workslip_edit_tab_form')
                 ->toHtml()

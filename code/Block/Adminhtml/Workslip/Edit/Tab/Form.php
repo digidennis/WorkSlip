@@ -6,13 +6,13 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
     {
         $form = new Varien_Data_Form();
         $this->setForm($form);
-        $fieldset = $form->addFieldset('films_form', array('legend'=>'ref information'));
-        $fieldset->addField('name', 'text',
+        $customerfieldset = $form->addFieldset('customerFieldset', array('legend'=> $this->__('Customer')));
+        $customerfieldset->addField('firstname', 'text',
             array(
-                'label' => 'Name',
+                'label' => $this->__('Firstname'),
                 'class' => 'required-entry',
                 'required' => true,
-                'name' => 'name',
+                'name' => 'firstname',
             ));
 
         if ( Mage::registry('workslip_data') )
