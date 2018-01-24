@@ -7,6 +7,13 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
         $form = new Varien_Data_Form();
         $this->setForm($form);
         $customerfieldset = $form->addFieldset('customerFieldset', array('legend'=> $this->__('Customer')));
+        $customerfieldset->addField('registered', 'button', array(
+            'label' => Mage::helper('core')->__('Import from customer'),
+            'value' => Mage::helper('core')->__('Button Caption'),
+            'name'  => 'registered',
+            'class' => 'form-button',
+            'onclick' => "setLocation('{$this->getUrl('*/*/registeremail')}')",
+        ));
         $customerfieldset->addField('firstname', 'text',
             array(
                 'label' => $this->__('Firstname'),
