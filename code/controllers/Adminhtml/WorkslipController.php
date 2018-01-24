@@ -36,10 +36,10 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
             $this->getLayout()->getBlock('head')
                 ->setCanLoadExtJs(true);
             $this->_addContent($this->getLayout()
-                ->createBlock('digidennis_workslip/adminhtml_workslip_edit'));
-                /*->_addLeft($this->getLayout()
+                ->createBlock('digidennis_workslip/adminhtml_workslip_edit'))
+                ->_addLeft($this->getLayout()
                     ->createBlock('pfay_films/adminhtml_films_edit_tabs')
-                );*/
+                );
             $this->renderLayout();
         }
         else
