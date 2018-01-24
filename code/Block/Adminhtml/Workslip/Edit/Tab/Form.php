@@ -19,7 +19,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
                 'label' => $this->__('Surname'),
                 'class' => 'required-entry',
                 'required' => true,
-                'name' => 'firstname',
+                'name' => 'lastname',
             ));
         $customerfieldset->addField('address', 'text',
             array(
