@@ -13,37 +13,43 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
                 'class' => 'required-entry',
                 'required' => true,
                 'name' => 'firstname',
-            ))->addField('lastname', 'text',
+            ));
+        $customerfieldset->addField('lastname', 'text',
             array(
                 'label' => $this->__('Surname'),
                 'class' => 'required-entry',
                 'required' => true,
                 'name' => 'firstname',
-            ))->addField('address', 'text',
+            ));
+        $customerfieldset->addField('address', 'text',
             array(
                 'label' => $this->__('Address'),
                 'class' => 'required-entry',
                 'required' => true,
                 'name' => 'address',
-            ))->addField('zip', 'text',
+            ));
+        $customerfieldset->addField('zip', 'text',
             array(
                 'label' => $this->__('Zip'),
                 'class' => 'required-entry',
                 'required' => true,
                 'name' => 'zip',
-            ))->addField('city', 'text',
+            ));
+        $customerfieldset->addField('city', 'text',
             array(
                 'label' => $this->__('City'),
                 'class' => 'required-entry',
                 'required' => true,
                 'name' => 'city',
-            ))->addField('email', 'text',
+            ));
+        $customerfieldset->addField('email', 'text',
             array(
                 'label' => $this->__('E-mail'),
                 'class' => 'required-entry',
                 'required' => true,
                 'name' => 'email',
-            ))->addField('phone', 'text',
+            ));
+        $customerfieldset->addField('phone', 'text',
             array(
                 'label' => $this->__('Phone'),
                 'class' => 'required-entry',
@@ -60,7 +66,8 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
                 'name' => 'estimateddone_date',
                 'image' => $this->getSkinUrl('images/grid-cal.gif'),
                 'format' => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
-            ))->addField('whattodo', 'multiline',
+            ));
+        $workfieldset->addField('whattodo', 'multiline',
             array(
                 'label' => $this->__('What To Do'),
                 'class' => 'required-entry',
