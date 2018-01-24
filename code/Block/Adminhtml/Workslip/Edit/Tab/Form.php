@@ -13,6 +13,57 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
                 'class' => 'required-entry',
                 'required' => true,
                 'name' => 'firstname',
+            ))->addField('lastname', 'text',
+            array(
+                'label' => $this->__('Surname'),
+                'class' => 'required-entry',
+                'required' => true,
+                'name' => 'firstname',
+            ))->addField('address', 'text',
+            array(
+                'label' => $this->__('Address'),
+                'class' => 'required-entry',
+                'required' => true,
+                'name' => 'address',
+            ))->addField('zip', 'text',
+            array(
+                'label' => $this->__('Zip'),
+                'class' => 'required-entry',
+                'required' => true,
+                'name' => 'zip',
+            ))->addField('city', 'text',
+            array(
+                'label' => $this->__('City'),
+                'class' => 'required-entry',
+                'required' => true,
+                'name' => 'city',
+            ))->addField('email', 'text',
+            array(
+                'label' => $this->__('E-mail'),
+                'class' => 'required-entry',
+                'required' => true,
+                'name' => 'email',
+            ))->addField('phone', 'text',
+            array(
+                'label' => $this->__('Phone'),
+                'class' => 'required-entry',
+                'required' => true,
+                'name' => 'phone',
+            ));
+
+        $workfieldset = $form->addFieldset('theWorkFieldset', array('legend'=> $this->__('The Work')));
+        $workfieldset->addField('estimateddone_date', 'datetime',
+            array(
+                'label' => $this->__('Estimated Done Date'),
+                'class' => 'required-entry',
+                'required' => true,
+                'name' => 'estimateddone_date',
+            ))->addField('whattodo', 'multiline',
+            array(
+                'label' => $this->__('What To Do'),
+                'class' => 'required-entry',
+                'required' => true,
+                'name' => 'whattodo',
             ));
 
         if ( Mage::registry('workslip_data') )

@@ -13,7 +13,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tabs extends Mage_Adminh
     protected function _beforeToHtml()
     {
         $this->addTab('form_section', array(
-            'label' => $this->__('WorkSlip'),
+            'label' => $this->__('General'),
             'title' => $this->__('General'),
             'content' => $this->getLayout()
                 ->createBlock('digidennis_workslip/adminhtml_workslip_edit_tab_form')
