@@ -52,7 +52,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
             'header'    => Mage::helper('digidennis_workslip')->__('Customer'),
             'index'     => 'name',
             'align'     => 'center',
-            'filter_index' => "CONCAT( `main_table.firstname`, ' ', `main_table.lastname`)",
+            'filter_index' => "CONCAT(firstname, \" \", lastname)",
             'width'     => '150px',
         ));
 
