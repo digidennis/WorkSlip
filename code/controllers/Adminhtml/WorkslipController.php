@@ -67,7 +67,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
                 $workslipModel->addData($postData);
                 $workslipModel->save();
 
-                Mage::getSingleton('adminhtml/session')->addSuccess('successfully saved');
+                Mage::getSingleton('adminhtml/session')->addSuccess($this->__('WorkSlip'). ' ' . $this->__('saved'));
                 Mage::getSingleton('adminhtml/session')->setWorkslipData(false);
                 $this->_redirect('*/*/');
                 return;
