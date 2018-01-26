@@ -14,9 +14,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('digidennis_workslip/workslip')
-            ->getCollection()
-            ->addExpressionFieldToSelect('name','CONCAT({{firstname}},"  ",{{lastname}})', array('firstname' => 'firstname','lastname' => 'lastname'));
-
+            ->getCollection();
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -48,8 +46,9 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
 
         $this->addColumn('name', array(
             'header'    => Mage::helper('digidennis_workslip')->__('Customer'),
-            'align'     =>'left',
-            'index'     => 'name',
+            'align'     => 'left',
+            'type'      => 'concat',
+            'index'     => array('firstname', 'lastname'),
             'width'     => '150px',
         ));
 
