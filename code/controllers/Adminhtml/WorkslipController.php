@@ -54,7 +54,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
         if ($this->getRequest()->getPost()) {
             try {
                 $postData = $this->getRequest()->getPost();
-                $this->_filterDates($postData, array('estimateddone_date')); // all date fields in array
+                //$this->_filterDates($postData, array('estimateddone_date')); // all date fields in array
                 $workslipModel = Mage::getModel('digidennis_workslip/workslip');
 
                 if( $this->getRequest()->getParam('id') )
@@ -64,7 +64,8 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
                     $workslipModel->setCreateDate(Mage::getSingleton('core/date')->gmtDate(now()));
                 }
 
-                $workslipModel->addData($postData)->save();
+                $workslipModel->addData($postData);
+                $workslipModel->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess('successfully saved');
                 Mage::getSingleton('adminhtml/session')->setWorkslipData(false);
