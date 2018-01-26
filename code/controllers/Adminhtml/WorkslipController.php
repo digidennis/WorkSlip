@@ -55,7 +55,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
         {
             try {
                 $postData = $this->getRequest()->getPost();
-                $this->_filterDate($postData, array('estimateddone_date')); // all datetime fields in array
+                $this->_filterDates($postData, array('estimateddone_date')); // all date fields in array
                 $workslipModel = Mage::getModel('digidennis_workslip/workslip');
 
                 if( $this->getRequest()->getParam('id') <= 0 ) {
