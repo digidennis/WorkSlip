@@ -60,15 +60,16 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
 
                 if( $this->getRequest()->getParam('id') <= 0 ) {
                     $workslipModel->setCreateDate(Mage::getSingleton('core/date')->gmtDate(now()));
-                }
-                $workslipModel
-                    ->addData($postData)
-                    ->save();
 
-                Mage::getSingleton('adminhtml/session')->addSuccess('successfully saved');
-                Mage::getSingleton('adminhtml/session')->setWorkslipData(false);
-                $this->_redirect('*/*/');
-                return;
+                    $workslipModel
+                        ->addData($postData)
+                        ->save();
+
+                    Mage::getSingleton('adminhtml/session')->addSuccess('successfully saved');
+                    Mage::getSingleton('adminhtml/session')->setWorkslipData(false);
+                    $this->_redirect('*/*/');
+                    return;
+                }
 
             } catch (Exception $e) {
 
