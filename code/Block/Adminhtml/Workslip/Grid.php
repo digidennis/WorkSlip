@@ -49,7 +49,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
             'type'      => 'concat',
             'index'     => array('firstname', 'lastname'),
             'separator'    => ' ',
-            'filter_index' => "CONCAT(firstname, ' ', lastname)",
+            'filter_index' => "CONCAT(main_table.firstname, ' ', main_table.lastname)",
             'width'     => '150px',
         ));
 
