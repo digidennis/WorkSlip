@@ -48,9 +48,9 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
             'header'    => Mage::helper('digidennis_workslip')->__('Customer'),
             'index'     => array('firstname', 'lastname'),
             'type'      => 'concat',
-            'seperator' => ' ',
+            'separator' => ' ',
             'align'     => 'center',
-            'filter_condition_callback' => array($this->getCollection(), '_nameFilter'),
+            'filter_condition_callback' => array($this, '_nameFilter'),
             'width'     => '150px',
         ));
 
