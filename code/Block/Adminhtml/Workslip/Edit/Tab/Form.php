@@ -73,7 +73,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
                 'class' => 'validate-date required-entry',
                 'align'=>"Bl",
                 'input_format' => Varien_Date::DATE_INTERNAL_FORMAT,
-                'format' => Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
+                'format' => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT),
                 'label' => $this->__('Estimated Done Date'),
                 'required' => true,
                 'time' => false,
