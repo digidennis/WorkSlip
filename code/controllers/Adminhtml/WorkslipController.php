@@ -57,6 +57,9 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
                 $this->_filterDates($postData, array('estimateddone_date')); // all date fields in array
                 $workslipModel = Mage::getModel('digidennis_workslip/workslip');
 
+                if( $this->getRequest()->getParam('id') )
+                    $workslipModel->load($this->getRequest()->getParam('id'));
+
                 if( $workslipModel->getCreateDate() === null ){
                     $workslipModel->setCreateDate(Mage::getSingleton('core/date')->gmtDate(now()));
                 }
