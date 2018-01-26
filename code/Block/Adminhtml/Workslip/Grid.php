@@ -39,7 +39,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
             'header'    => Mage::helper('digidennis_workslip')->__('Estimated to'),
             'align'     =>'center',
             'index'     => 'estimateddone_date',
-            'type'     => 'datetime',
+            'type'     => 'date',
             'width'     => '50px',
         ));
 
