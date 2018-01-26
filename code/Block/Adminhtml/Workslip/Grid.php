@@ -15,8 +15,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
     {
         $collection = Mage::getModel('digidennis_workslip/workslip')
             ->getCollection()
-            ->addExpressionFieldToSelect('name','CONCAT({{firstname}},"  ",{{lastname}})', array('firstname' => 'firstname','lastname' => 'lastname'))
-            ->addFieldToFilter('name', array('like' => '%name%'));
+            ->addExpressionFieldToSelect('name','CONCAT({{firstname}},"  ",{{lastname}})', array('firstname' => 'firstname','lastname' => 'lastname'));
 
         $this->setCollection($collection);
         return parent::_prepareCollection();
