@@ -14,11 +14,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('digidennis_workslip/workslip')
-            ->getCollection()
-            ->addExpressionFieldToSelect(
-                'name',
-                'CONCAT({{firstname}}, " ", {{lastname}})',
-                array('firstname' => 'main_table.firstname', 'lastname' => 'main_table.lastname'));
+            ->getCollection();
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -50,9 +46,11 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
 
         $this->addColumn('name', array(
             'header'    => Mage::helper('digidennis_workslip')->__('Customer'),
-            'index'     => 'name',
+            'index'     => array('firstname', 'lastname'),
+            'type'      => 'concat',
+            'seperator' => ' ',
             'align'     => 'center',
-            'filter_index' => "CONCAT(firstname, \" \", lastname)",
+            'filter_condition_callback' => array($this->getCollection(), '_nameFilter'),
             'width'     => '150px',
         ));
 
@@ -66,6 +64,15 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
         ));
 
         return parent::_prepareColumns();
+    }
+
+    protected function _nameFilter($collection, $column)
+    {
+        if (!$value = $column->getFilter()->getValue()) {
+            return $this;
+        }
+        $collection->getSelect()->where("CONCAT(main_table.firstname, \" \", main_table.lastname )like ?", "%$value%");
+        return $this;
     }
 
     public function getRowUrl($row)
