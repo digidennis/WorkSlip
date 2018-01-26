@@ -3,7 +3,7 @@
 
     <modules>
         <Digidennis_WorkSlip>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </Digidennis_WorkSlip>
     </modules>
 
@@ -66,6 +66,9 @@
                     <workslip>
                         <table>digidennis_workslip_workslip</table>
                     </workslip>
+                    <material>
+                        <table>digidennis_workslip_material</table>
+                    </material>
                 </entities>
             </digidennis_workslip_resource>
         </models>

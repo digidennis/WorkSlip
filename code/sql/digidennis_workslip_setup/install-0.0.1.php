@@ -20,7 +20,7 @@ $workslip = $installer->getConnection()->newTable( $installer->getTable('digiden
     ->addColumn('create_date', Varien_Db_Ddl_Table::TYPE_DATETIME, null, array(
         'nullable' => false
     ), 'Creation Date')
-    ->addColumn('estimateddone_date', Varien_Db_Ddl_Table::TYPE_DATETIME, null, array(
+    ->addColumn('estimateddone_date', Varien_Db_Ddl_Table::TYPE_DATE, null, array(
         'nullable' => false
     ), 'Estimated Done Date')
     ->addColumn('firstname', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
@@ -58,5 +58,6 @@ $workslip = $installer->getConnection()->newTable( $installer->getTable('digiden
         ACTION_CASCADE,
         ACTION_NO_ACTION
     );
+
 $installer->getConnection()->createTable($workslip);
 $installer->endSetup();
