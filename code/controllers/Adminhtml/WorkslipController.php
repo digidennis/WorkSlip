@@ -51,25 +51,22 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
 
     public function saveAction()
     {
-        if ($this->getRequest()->getPost())
-        {
+        if ($this->getRequest()->getPost()) {
             try {
                 $postData = $this->getRequest()->getPost();
                 $this->_filterDates($postData, array('estimateddone_date')); // all date fields in array
                 $workslipModel = Mage::getModel('digidennis_workslip/workslip');
 
-                if( $this->getRequest()->getParam('id') <= 0 ) {
+                if( $workslipModel->getCreateDate() === null ){
                     $workslipModel->setCreateDate(Mage::getSingleton('core/date')->gmtDate(now()));
-
-                    $workslipModel
-                        ->addData($postData)
-                        ->save();
-
-                    Mage::getSingleton('adminhtml/session')->addSuccess('successfully saved');
-                    Mage::getSingleton('adminhtml/session')->setWorkslipData(false);
-                    $this->_redirect('*/*/');
-                    return;
                 }
+
+                $workslipModel->addData($postData)->save();
+
+                Mage::getSingleton('adminhtml/session')->addSuccess('successfully saved');
+                Mage::getSingleton('adminhtml/session')->setWorkslipData(false);
+                $this->_redirect('*/*/');
+                return;
 
             } catch (Exception $e) {
 
@@ -78,8 +75,6 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
                 return;
             }
-
-            $this->_redirect('*/*/');
         }
     }
 

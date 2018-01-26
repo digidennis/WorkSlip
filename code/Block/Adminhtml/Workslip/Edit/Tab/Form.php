@@ -73,6 +73,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
                 'label' => $this->__('Estimated Done Date'),
                 'class' => 'required-entry',
                 'required' => true,
+                'time' => false,
                 'name' => 'estimateddone_date',
                 'image' => $this->getSkinUrl('images/grid-cal.gif'),
                 'format' =>  Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT)
