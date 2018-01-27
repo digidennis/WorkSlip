@@ -71,6 +71,8 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
             ));
 
         $workfieldset = $form->addFieldset('theWorkFieldset', array('legend'=> $this->__('The Work')));
+        $workfieldset->addType('material_grid', 'Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials');
+
         $workfieldset->addField('select', 'select', array(
             'label'     => $this->__('State'),
             'name'      => 'state',
@@ -94,9 +96,6 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
                 'required' => true,
                 'name' => 'whattodo',
             ));
-
-        $workfieldset->addType('material_grid', 'Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials');
-
         $workfieldset->addField('materials', 'material_grid', array(
             'label'     => Mage::helper('digidennis_workslip')->__('Materials'),
             'name'      => 'materials',
@@ -104,7 +103,6 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
             'onchange' => "",
             'disabled' => false,
             'readonly' => false,
-            'tabindex' => 1
         ));
 
         if ( Mage::registry('workslip_data') )
