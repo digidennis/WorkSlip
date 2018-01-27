@@ -17,16 +17,6 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
             Mage_Core_Model_Locale::FORMAT_TYPE_LONG
         );
         $customerfieldset = $form->addFieldset('customerFieldset', array('legend'=> $this->__('Customer')));
-
-        $button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
-                'label'   => Mage::helper('core')->__('Import from customer'),
-                'onclick' =>"setLocation('{$this->getUrl('*/*/importcustomer')}');",
-                'class'   => 'add',
-            ));
-        $button->setName('import_customer');
-        $customerfieldset->setHeaderBar($button->toHtml());
-
         $customerfieldset->addField('firstname', 'text',
             array(
                 'label' => $this->__('Firstname'),
@@ -78,12 +68,10 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
             ));
 
         $workfieldset = $form->addFieldset('theWorkFieldset', array('legend'=> $this->__('The Work')));
-        $workfieldset->addType('material_grid', 'Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials');
-
         $workfieldset->addField('select', 'select', array(
             'label'     => $this->__('State'),
             'name'      => 'state',
-            'values' => Mage::helper('digidennis_workslip')->getMaterialStates(),
+            'values' => Mage::helper('digidennis_workslip')->getStates(),
         ));
         $workfieldset->addField('estimateddone_date', 'date',
             array(
@@ -103,7 +91,18 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
                 'required' => true,
                 'name' => 'whattodo',
             ));
-        $workfieldset->addField('materials', 'material_grid', array(
+
+        $materialsFieldset = $form->addFieldset('materialsFieldset', array('legend'=> $this->__('Materials')));
+        $button = $this->getLayout()->createBlock('adminhtml/widget_button')
+            ->setData(array(
+                'label'   => Mage::helper('core')->__('Add Material'),
+                'onclick' =>"setLocation('{$this->getUrl('*/*/editmaterial')}');",
+                'class'   => 'add',
+            ));
+        $button->setName('add_material');
+        $materialsFieldset->setHeaderBar($button->toHtml());
+        $materialsFieldset->addType('material_grid', 'Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials');
+        $materialsFieldset->addField('materials', 'material_grid', array(
             'label'     => Mage::helper('digidennis_workslip')->__('Materials'),
             'name'      => 'materials',
             'onclick' => "",
@@ -118,6 +117,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
         }
         $form->setUseContainer(true);
         $this->setForm($form);
+
         return parent::_prepareForm();
     }
 }
