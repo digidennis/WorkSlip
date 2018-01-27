@@ -103,7 +103,6 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
         $materialsFieldset->setHeaderBar($button->toHtml());
         $materialsFieldset->addType('material_grid', 'Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials');
         $materialsFieldset->addField('materials', 'material_grid', array(
-            'label'     => Mage::helper('digidennis_workslip')->__('Materials'),
             'name'      => 'materials',
             'onclick' => "",
             'onchange' => "",
