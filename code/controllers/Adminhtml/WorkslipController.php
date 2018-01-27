@@ -67,15 +67,12 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
             $this->getLayout()->getBlock('head')
                 ->setCanLoadExtJs(true);
             $this->_addContent($this->getLayout()
-                ->createBlock('digidennis_workslip/adminhtml_workslip_edit'))/*
-                ->_addLeft($this->getLayout()
-                    ->createBlock('digidennis_workslip/adminhtml_workslip_edit_tabs')
-                )*/;
+                ->createBlock('digidennis_workslip/adminhtml_workslip_edit_material'));
             $this->renderLayout();
         }
         else
         {
-            Mage::getSingleton('adminhtml/session')->addError('WorkSlip does not exist');
+            Mage::getSingleton('adminhtml/session')->addError('Material does not exist');
             $this->_redirect('*/*/');
         }
 

@@ -21,6 +21,13 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
                 'required' => true,
                 'name' => 'description',
             ));
+        $fieldset->addField('price', 'text',
+            array(
+                'label' => $this->__('Price'),
+                'class' => 'required-entry validate-price',
+                'required' => true,
+                'name' => 'price',
+            ));
         $fieldset->addField('state', 'select',
             array(
                 'label'     => $this->__('State'),
