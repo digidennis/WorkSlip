@@ -71,6 +71,11 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
             ));
 
         $workfieldset = $form->addFieldset('theWorkFieldset', array('legend'=> $this->__('The Work')));
+        $workfieldset->addField('select', 'select', array(
+            'label'     => $this->__('State'),
+            'name'      => 'state',
+            'values' => Mage::helper('digidennis_workslip')->getMaterialStates(),
+        ));
         $workfieldset->addField('estimateddone_date', 'date',
             array(
                 'class' => 'validate-date required-entry',
@@ -89,6 +94,18 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Form extends Mage_Ad
                 'required' => true,
                 'name' => 'whattodo',
             ));
+
+        $workfieldset->addType('material_grid', 'Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials');
+
+        $workfieldset->addField('materials', 'material_grid', array(
+            'label'     => Mage::helper('digidennis_workslip')->__('Materials'),
+            'name'      => 'materials',
+            'onclick' => "",
+            'onchange' => "",
+            'disabled' => false,
+            'readonly' => false,
+            'tabindex' => 1
+        ));
 
         if ( Mage::registry('workslip_data') )
         {

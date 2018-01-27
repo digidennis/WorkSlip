@@ -6,7 +6,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Materials extends Ma
     {
         parent::__construct();
         $this->setId('materialsGrid');
-        $this->setDefaultSort('workslip_id');
+        $this->setDefaultSort('material_id');
         $this->setUseAjax(true);
         $this->setDefaultDir('ASC');
         $this->setSaveParametersInSession(true);
@@ -14,7 +14,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Materials extends Ma
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('digidennis_workslip/workslip')
+        $collection = Mage::getModel('digidennis_workslip/material')
             ->getCollection();
         $this->setCollection($collection);
         return parent::_prepareCollection();
@@ -22,37 +22,28 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Materials extends Ma
 
     protected function _prepareColumns()
     {
-        $this->addColumn('workslip_id', array(
+        $this->addColumn('id', array(
             'header'    => Mage::helper('digidennis_workslip')->__('#'),
             'align'     =>'right',
             'width'     => '10px',
-            'index'     => 'workslip_id',
+            'index'     => 'material_id',
         ));
 
-        $this->addColumn('create_date', array(
-            'header'    => Mage::helper('digidennis_workslip')->__('Created'),
+        $this->addColumn('description', array(
+            'header'    => Mage::helper('digidennis_workslip')->__('Description'),
             'align'     =>'center',
-            'index'     => 'create_date',
-            'type'      => 'datetime',
-            'width'     => '50px',
-        ));
-
-        $this->addColumn('estimateddone_date', array(
-            'header'    => Mage::helper('digidennis_workslip')->__('Estimated to'),
-            'align'     =>'center',
-            'index'     => 'estimateddone_date',
-            'type'     => 'date',
-            'width'     => '50px',
-        ));
-
-        $this->addColumn('name', array(
-            'header'    => Mage::helper('digidennis_workslip')->__('Customer'),
-            'index'     => array('firstname', 'lastname'),
-            'type'      => 'concat',
-            'separator' => ' ',
-            'align'     => 'center',
-            'filter_condition_callback' => array($this, '_nameFilter'),
+            'index'     => 'description',
+            'type'     => 'text',
             'width'     => '150px',
+        ));
+
+        $this->addColumn('price', array(
+            'header'    => Mage::helper('digidennis_workslip')->__('Price'),
+            'index'     => 'price',
+            'type'      => 'currency',
+            'currency'  => 'currency_code',
+            'align'     => 'center',
+            'width'     => '80px',
         ));
 
         $this->addColumn('state', array(
@@ -61,7 +52,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Materials extends Ma
             'index'     => 'state',
             'type'  => 'options',
             'width' => '100px',
-            'options' => Mage::helper('digidennis_workslip')->getStates(),
+            'options' => Mage::helper('digidennis_workslip')->getMaterialStates(),
         ));
 
         return parent::_prepareColumns();
