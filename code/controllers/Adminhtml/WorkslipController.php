@@ -81,9 +81,6 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
             $this->_addContent($this->getLayout()
                 ->createBlock('digidennis_workslip/adminhtml_workslip_edit_material'));
             $this->renderLayout();
-            $this->_redirectUrl(
-                $this->getUrl('*/*/edit', array('id' => $workslipdata['workslip_id']))
-            );
         }
         else
         {
