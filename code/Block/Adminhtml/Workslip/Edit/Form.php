@@ -93,15 +93,6 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
             ));
 
         $materialsFieldset = $form->addFieldset('materialsFieldset', array('legend'=> $this->__('Materials')));
-        /*$button = $this->getLayout()->createBlock('adminhtml/widget_button')
-            ->setData(array(
-                'label'   => Mage::helper('core')->__('Add Material'),
-                'onclick' =>"editForm.submit();",
-                'class'   => 'add',
-                'name'    => 'addmaterialSubmit'
-            ));
-        $button->setName('add_material');*/
-        //$materialsFieldset->setHeaderBar($button->toHtml());
         $materialsFieldset->addType('material_grid', 'Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials');
         $materialsFieldset->addField('materials', 'material_grid', array(
             'name'      => 'materials',
