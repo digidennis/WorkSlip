@@ -96,8 +96,9 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
         $button = $this->getLayout()->createBlock('adminhtml/widget_button')
             ->setData(array(
                 'label'   => Mage::helper('core')->__('Add Material'),
-                'onclick' =>"setLocation('{$this->getUrl('*/*/editmaterial')}');",
+                'onclick' =>"editForm.submit();",
                 'class'   => 'add',
+                'name'    => 'addmaterialSubmit'
             ));
         $button->setName('add_material');
         $materialsFieldset->setHeaderBar($button->toHtml());
