@@ -7,4 +7,10 @@
         </reference>
     </adminhtml_workslip_index>
 
+    <adminhtml_workslip_edit>
+        <reference name="content">
+            <block type="digidennis_workslip/adminhtml_workslip_edit_form" name="workslip" />
+        </reference>
+    </adminhtml_workslip_edit>
+
 </layout>
