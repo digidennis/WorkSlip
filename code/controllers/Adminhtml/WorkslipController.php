@@ -52,10 +52,22 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
     public function editmaterialAction()
     {
         $id = $this->getRequest()->getParam('id');
+        if( Mage::registry('workslip_data') )
+        {
+            $workslipdata = Mage::registry('workslip_data')->getData();
+        }
         $material = Mage::getModel('digidennis_workslip/material')->load($id);
 
         if ($material->getMaterialId() || $id == 0)
         {
+            // new material defaults
+            if( $id == 0 )
+            {
+                $material->setState(0);
+                $material->setWorkslipId($workslipdata['workslip_id']);
+                $material->setPrice('0');
+            }
+
             Mage::register('workslip_material', $material);
 
             $this->loadLayout();
@@ -69,6 +81,9 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
             $this->_addContent($this->getLayout()
                 ->createBlock('digidennis_workslip/adminhtml_workslip_edit_material'));
             $this->renderLayout();
+            $this->_redirectUrl(
+                $this->getUrl('*/*/edit', array('id' => $workslipdata['workslip_id']))
+            );
         }
         else
         {
