@@ -19,13 +19,6 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tabs extends Mage_Adminh
                 ->createBlock('digidennis_workslip/adminhtml_workslip_edit_tab_form')
                 ->toHtml()
         ));
-        /*$this->addTab('materials', array(
-            'label' => $this->__('Materials'),
-            'title' => $this->__('Materials'),
-            'content' => $this->getLayout()
-                ->createBlock('digidennis_workslip/adminhtml_workslip_edit_tab_materials')
-                ->toHtml()
-        ));*/
 
         return parent::_beforeToHtml();
     }
