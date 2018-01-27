@@ -5,6 +5,17 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Material extends Mage_Ad
 
     public function __construct()
     {
+        if( Mage::registry('workslip_data') ){
+            $data = array(
+                'label' =>  'Back',
+                'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/edit',
+                        array(
+                            'id'=>Mage::registry('workslip_data')->getWorkslipId())
+                    ) . '\')',
+                'class'     =>  'back'
+            );
+            $this->addButton ('my_back', $data, 0, 100,  'header');
+        }
         parent::__construct();
         $this->_objectId = 'material_id';
         //you will notice that assigns the same blockGroup the Grid Container
@@ -15,6 +26,10 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Material extends Mage_Ad
         //we define the labels for the buttons save and delete
         $this->_updateButton('save', 'label', $this->__('Save') . ' ' . $this->__('Material'));
         $this->_updateButton('delete', 'label', $this->__('Delete') . ' ' . $this->__('Material'));
+
+        if( Mage::registry('workslip_data') ){
+            $this->_removeButton('back');
+        }
     }
 
     /* Here, we look at whether it was transmitted item to form
