@@ -1,6 +1,6 @@
 <?php
 
-class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
+class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Material_Form extends Mage_Adminhtml_Block_Widget_Form
 {
     protected function _prepareForm()
     {
