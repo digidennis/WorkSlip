@@ -8,7 +8,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Material extends Mage_Ad
         parent::__construct();
         $this->_objectId = 'material_id';
         //you will notice that assigns the same blockGroup the Grid Container
-        $this->_blockGroup = 'digidennis_workslip';
+        $this->_blockGroup = 'digidennis_workslip_material';
         // and the same container
         $this->_controller = 'adminhtml_workslip';
         //we define the labels for the buttons save and delete
