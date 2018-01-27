@@ -14,8 +14,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials_
 
     protected function _prepareCollection()
     {
-        $collection = Mage::getModel('digidennis_workslip/material')
-            ->getCollection();
+        $collection = Mage::getModel('digidennis_workslip/material')->getCollection();
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
