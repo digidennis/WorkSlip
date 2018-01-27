@@ -1,6 +1,6 @@
 <?php
 
-class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Tab_Materials extends Mage_Adminhtml_Block_Widget_Grid
+class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials_Grid extends Mage_Adminhtml_Block_Widget_Grid
 {
     public function __construct()
     {
