@@ -10,6 +10,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials_
         $this->setUseAjax(true);
         $this->setDefaultDir('ASC');
         $this->setSaveParametersInSession(true);
+        $this->setFilterVisibility(false);
     }
 
     protected function _prepareCollection()
@@ -26,6 +27,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials_
             'align'     =>'right',
             'width'     => '10px',
             'index'     => 'material_id',
+            'sortable'  => false
         ));
 
         $this->addColumn('description', array(
@@ -34,6 +36,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials_
             'index'     => 'description',
             'type'     => 'text',
             'width'     => '150px',
+            'sortable'  => false
         ));
 
         $this->addColumn('price', array(
@@ -43,6 +46,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials_
             'currency'  => 'currency_code',
             'align'     => 'center',
             'width'     => '80px',
+            'sortable'  => false
         ));
 
         $this->addColumn('state', array(
@@ -52,18 +56,10 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials_
             'type'  => 'options',
             'width' => '100px',
             'options' => Mage::helper('digidennis_workslip')->getMaterialStates(),
+            'sortable'  => false
         ));
 
         return parent::_prepareColumns();
-    }
-
-    protected function _nameFilter($collection, $column)
-    {
-        if (!$value = $column->getFilter()->getValue()) {
-            return $this;
-        }
-        $collection->getSelect()->where("CONCAT(main_table.firstname, \" \", main_table.lastname )like ?", "%$value%");
-        return $this;
     }
 
     public function getRowUrl($row)
