@@ -68,7 +68,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
             ));
 
         $workfieldset = $form->addFieldset('theWorkFieldset', array('legend'=> $this->__('The Work')));
-        $workfieldset->addField('select', 'select', array(
+        $workfieldset->addField('state', 'select', array(
             'label'     => $this->__('State'),
             'name'      => 'state',
             'values' => Mage::helper('digidennis_workslip')->getStates(),

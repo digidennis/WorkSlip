@@ -49,6 +49,38 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
         }
     }
 
+    public function editmaterialAction()
+    {
+        $id = $this->getRequest()->getParam('id');
+        $material = Mage::getModel('digidennis_workslip/material')->load($id);
+
+        if ($material->getMaterialId() || $id == 0)
+        {
+            Mage::register('workslip_material', $material);
+
+            $this->loadLayout();
+            $this->_setActiveMenu('digidennis/workslipgrid');
+            $this->_addBreadcrumb('WorkSlip', 'WorkSlip');
+            $this->_addBreadcrumb('Edit', 'Edit');
+            $this->_addBreadcrumb('Edit Material', 'Edit Material');
+
+            $this->getLayout()->getBlock('head')
+                ->setCanLoadExtJs(true);
+            $this->_addContent($this->getLayout()
+                ->createBlock('digidennis_workslip/adminhtml_workslip_edit'))/*
+                ->_addLeft($this->getLayout()
+                    ->createBlock('digidennis_workslip/adminhtml_workslip_edit_tabs')
+                )*/;
+            $this->renderLayout();
+        }
+        else
+        {
+            Mage::getSingleton('adminhtml/session')->addError('WorkSlip does not exist');
+            $this->_redirect('*/*/');
+        }
+
+    }
+
     public function saveAction()
     {
         if ($this->getRequest()->getPost()) {
