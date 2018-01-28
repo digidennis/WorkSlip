@@ -7,7 +7,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit extends Mage_Adminhtml_B
     {
         $this->_addButton('add_new', array(
             'label'   => Mage::helper('catalog')->__('Add Material'),
-            'onclick' => "editForm.submitUrl('{$this->getUrl('*/*/editmaterial')}');editForm.submit();",
+            'onclick' => "editForm.submit('{$this->getUrl('*/*/editmaterial')}');",
             'class'   => 'add',
             'name'    => 'addMaterialSubmit'
         ));
