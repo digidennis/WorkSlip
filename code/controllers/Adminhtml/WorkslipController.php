@@ -36,6 +36,11 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
             $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
             $this->_addContent($this->getLayout()->createBlock('digidennis_workslip/adminhtml_workslip_edit'));
             $this->renderLayout();
+
+            // this is the worsklip we are currently editing lets store the id in session so we can retun
+            //it is currently not cleared anywhere
+            if( $workslip->getWorkslipId() )
+                Mage::getSingleton('adminhtml/session')->setWorkslipEditId($workslip->getWorkslipId());
         }
         else
         {
@@ -46,31 +51,25 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
 
     public function editmaterialAction()
     {
-        //save edit data if present
+        //save workslip edit data if present
         if ($postData = $this->getRequest()->getPost()) {
             try {
                 $workslipModel = Mage::getModel('digidennis_workslip/workslip');
-                if( $this->getRequest()->getParam('id') )
-                    $workslipModel->load($this->getRequest()->getParam('id'));
-
+                if(Mage::getSingleton('adminhtml/session')->getWorkslipEditId())
+                    $workslipModel->load(Mage::getSingleton('adminhtml/session')->getWorkslipEditId());
                 $workslipModel->addData($postData);
                 $workslipModel->save();
-
                 Mage::getSingleton('adminhtml/session')->setWorkslipEditId($workslipModel->getWorkslipId());
 
             } catch (Exception $e) {
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setWorkslipData($this->getRequest()->getPost());
-                Mage::getSingleton('adminhtml/session')->setWorkslipEditId(false);
-                $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+                $this->_redirect('*/*/edit', array('id' => Mage::getSingleton('adminhtml/session')->getWorkslipEditId()));
                 return;
             }
         }
+
         $id = $this->getRequest()->getParam('id');
-        if( Mage::registry('workslip_data') )
-        {
-            $workslipdata = Mage::registry('workslip_data')->getData();
-        }
         $material = Mage::getModel('digidennis_workslip/material')->load($id);
 
         if ($material->getMaterialId() || $id == 0)
@@ -79,7 +78,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
             if( $id == 0 )
             {
                 $material->setState(0);
-                $material->setWorkslipId($workslipdata['workslip_id']);
+                $material->setWorkslipId(Mage::getSingleton('adminhtml/session')->getWorkslipEditId());
                 $material->setPrice('0');
             }
 
@@ -110,7 +109,6 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
         if ($this->getRequest()->getPost()) {
             try {
                 $postData = $this->getRequest()->getPost();
-                //$this->_filterDates($postData, array('estimateddone_date')); // all date fields in array
                 $workslipModel = Mage::getModel('digidennis_workslip/workslip');
 
                 if( $this->getRequest()->getParam('id') )
@@ -143,10 +141,6 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
         $this->_forward('edit');
     }
 
-    public function newmaterialAction()
-    {
-        $this->_forward('edit');
-    }
 
     public function deleteAction()
     {
