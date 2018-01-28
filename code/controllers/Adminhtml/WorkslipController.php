@@ -221,4 +221,30 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
         }
         $this->_redirect('*/*/');
     }
+    
+    public function massMaterialStatusAction()
+    {
+        $state = (int)$this->getRequest()->getParam('state') - 1; //due to array_unshift our index should be negated
+        $material_ids = $this->getRequest()->getParam('mass_material_id');
+
+        if(!is_array($material_ids)) {
+            Mage::getSingleton('adminhtml/session')->addError( $this->__('Please select Materials.'));
+        } else {
+            try {
+                $materialmodel = Mage::getModel('digidennis_workslip/material');
+                foreach ($material_ids as $id) {
+                    $materialmodel->load($id);
+                    $materialmodel->setState($state)->save();
+                }
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('tax')->__(
+                        'Total of %d record(s) were changed.', count($material_ids)
+                    )
+                );
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            }
+        }
+        $this->_redirect('*/*/edit', array('id' => Mage::getSingleton('adminhtml/session')->getWorkslipEditId()));
+    }
 }

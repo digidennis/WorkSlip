@@ -34,7 +34,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
                     'name' => 'state',
                     'type' => 'select',
                     'class' => 'required-entry',
-                    'label' => $this->__('Status'),
+                    'label' => $this->__('State'),
                     'values' => $statuses
                 )
             )

@@ -22,6 +22,29 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials_
         return parent::_prepareCollection();
     }
 
+    protected function _prepareMassaction()
+    {
+        $this->setMassactionIdField('mass_material_id');
+        $this->getMassactionBlock()->setFormFieldName('mass_material_id');
+
+        $statuses = Mage::helper('digidennis_workslip')->getMaterialStates();
+        array_unshift($statuses, array('label'=>'', 'value'=>''));
+        $this->getMassactionBlock()->addItem('state', array(
+            'label'=> $this->__('Change State'),
+            'url'  => $this->getUrl('*/*/massMaterialStatus', array('_current'=>true)),
+            'additional' => array(
+                'visibility' => array(
+                    'name' => 'state',
+                    'type' => 'select',
+                    'class' => 'required-entry',
+                    'label' => $this->__('State'),
+                    'values' => $statuses
+                )
+            )
+        ));
+        return $this;
+    }
+
     protected function _prepareColumns()
     {
         $this->addColumn('id', array(
