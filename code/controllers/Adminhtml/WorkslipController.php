@@ -195,4 +195,30 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
         }
         $this->_redirect('*/*/');
     }
+
+    public function massStatusAction()
+    {
+        $state = (int)$this->getRequest()->getParam('state');
+        $workslip_ids = $this->getRequest()->getParam('mass_workslip_id');
+
+        if(!is_array($workslip_ids)) {
+            Mage::getSingleton('adminhtml/session')->addError( $this->__('Please select WorkSlips.'));
+        } else {
+            try {
+                $workslipmodel = Mage::getModel('digidennis_workslip/workslip');
+                foreach ($workslip_ids as $id) {
+                    $workslipmodel->load($id);
+                    $workslipmodel->setState($state)->save();
+                }
+                Mage::getSingleton('adminhtml/session')->addSuccess(
+                    Mage::helper('tax')->__(
+                        'Total of %d record(s) were changed.', count($workslip_ids)
+                    )
+                );
+            } catch (Exception $e) {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            }
+        }
+        $this->_redirect('*/*/');
+    }
 }

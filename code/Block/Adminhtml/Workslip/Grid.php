@@ -21,18 +21,17 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
 
     protected function _prepareMassaction()
     {
-        $this->setMassactionIdField('workslip_id');
+        $this->setMassactionIdField('mass_workslip_id');
         //$this->getMassactionBlock()->setFormFieldName('workslip_id');
 
         $statuses = Mage::helper('digidennis_workslip')->getStates();
-
         array_unshift($statuses, array('label'=>'', 'value'=>''));
-        $this->getMassactionBlock()->addItem('status', array(
+        $this->getMassactionBlock()->addItem('state', array(
             'label'=> $this->__('Change State'),
             'url'  => $this->getUrl('*/*/massStatus', array('_current'=>true)),
             'additional' => array(
                 'visibility' => array(
-                    'name' => 'status',
+                    'name' => 'state',
                     'type' => 'select',
                     'class' => 'required-entry',
                     'label' => $this->__('Status'),
