@@ -9,6 +9,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
         $this->loadLayout();
         $this->_setActiveMenu('digidennis/workslipgrid');
         $this->renderLayout();
+        Mage::getSingleton('adminhtml/session')->unsWorkslipEditId();
     }
 
     public function gridAction()
