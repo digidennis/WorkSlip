@@ -19,6 +19,30 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
         return parent::_prepareCollection();
     }
 
+    protected function _prepareMassaction()
+    {
+        $this->setMassactionIdField('workslip_id');
+        $this->getMassactionBlock()->setFormFieldName('workslip');
+
+        $statuses = Mage::getHelper('digidennis_workslip')->getStates();
+
+        array_unshift($statuses, array('label'=>'', 'value'=>''));
+        $this->getMassactionBlock()->addItem('status', array(
+            'label'=> $this->__('Change State'),
+            'url'  => $this->getUrl('*/*/massStatus', array('_current'=>true)),
+            'additional' => array(
+                'visibility' => array(
+                    'name' => 'status',
+                    'type' => 'select',
+                    'class' => 'required-entry',
+                    'label' => $this->__('Status'),
+                    'values' => $statuses
+                )
+            )
+        ));
+        return $this;
+    }
+
     protected function _prepareColumns()
     {
         $this->addColumn('workslip_id', array(
