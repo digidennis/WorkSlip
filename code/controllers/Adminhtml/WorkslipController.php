@@ -208,7 +208,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
                 $workslipmodel = Mage::getModel('digidennis_workslip/workslip');
                 foreach ($workslip_ids as $id) {
                     $workslipmodel->load($id);
-                    $workslipmodel->setState($state-1)->save();
+                    $workslipmodel->setState($state)->save();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('tax')->__(
