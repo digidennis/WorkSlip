@@ -198,7 +198,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
 
     public function massStatusAction()
     {
-        $state = (int)$this->getRequest()->getParam('state');
+        $state = (int)$this->getRequest()->getParam('state') - 1; //due to array_unshift our index should be negated
         $workslip_ids = $this->getRequest()->getParam('mass_workslip_id');
 
         if(!is_array($workslip_ids)) {
@@ -208,7 +208,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
                 $workslipmodel = Mage::getModel('digidennis_workslip/workslip');
                 foreach ($workslip_ids as $id) {
                     $workslipmodel->load($id);
-                    $workslipmodel->setState($state)->save();
+                    $workslipmodel->setState($state-1)->save();
                 }
                 Mage::getSingleton('adminhtml/session')->addSuccess(
                     Mage::helper('tax')->__(
