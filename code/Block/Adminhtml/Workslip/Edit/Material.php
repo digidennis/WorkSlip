@@ -5,7 +5,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Material extends Mage_Ad
 
     public function __construct()
     {
-        if( Mage::registry('workslip_data') ){
+        if( Mage::getSingleton('adminhtml/session')->getWorkslipEditId() ){
             $data = array(
                 'label' =>  'Back',
                 'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/edit',
@@ -27,7 +27,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Material extends Mage_Ad
         $this->_updateButton('save', 'label', $this->__('Save') . ' ' . $this->__('Material'));
         $this->_updateButton('delete', 'label', $this->__('Delete') . ' ' . $this->__('Material'));
 
-        if( Mage::registry('workslip_data') ){
+        if( Mage::getSingleton('adminhtml/session')->getWorkslipEditId() ){
             $this->_removeButton('back');
         }
     }
