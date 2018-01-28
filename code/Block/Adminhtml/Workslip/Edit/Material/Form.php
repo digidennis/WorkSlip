@@ -6,7 +6,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Material_Form extends Ma
     {
         $form = new Varien_Data_Form(
             array(
-                'id' => 'material_form',
+                'id' => 'edit_form',
                 'action' => $this->getUrl('*/*/savematerial', array('id' => $this->getRequest()->getParam('id'))
                 ),
                 'method' => 'post',
