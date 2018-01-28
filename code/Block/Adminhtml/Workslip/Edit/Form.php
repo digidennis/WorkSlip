@@ -71,7 +71,8 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
         $workfieldset->addField('state', 'select', array(
             'label'     => $this->__('State'),
             'name'      => 'state',
-            'values' => Mage::helper('digidennis_workslip')->getStates(),
+            'values'    => Mage::helper('digidennis_workslip')->getStates(),
+            'value'     => Mage::registry('workslip_data')->getData()['state']
         ));
         $workfieldset->addField('estimateddone_date', 'date',
             array(
