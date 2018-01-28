@@ -55,8 +55,10 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
         if ($postData = $this->getRequest()->getPost()) {
             try {
                 $workslipModel = Mage::getModel('digidennis_workslip/workslip');
+
                 if(Mage::getSingleton('adminhtml/session')->getWorkslipEditId())
                     $workslipModel->load(Mage::getSingleton('adminhtml/session')->getWorkslipEditId());
+
                 $workslipModel->addData($postData);
                 $workslipModel->save();
                 Mage::getSingleton('adminhtml/session')->setWorkslipEditId($workslipModel->getWorkslipId());
@@ -78,7 +80,6 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
             if( $id == 0 )
             {
                 $material->setState(0);
-                $material->setWorkslipId(Mage::getSingleton('adminhtml/session')->getWorkslipEditId());
                 $material->setPrice('0');
             }
 
@@ -131,6 +132,39 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
                 Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
                 Mage::getSingleton('adminhtml/session')->setWorkslipData($this->getRequest()->getPost());
                 $this->_redirect('*/*/edit', array('id' => $this->getRequest()->getParam('id')));
+                return;
+            }
+        }
+    }
+
+    public function savematerialAction()
+    {
+        if ($this->getRequest()->getPost())
+        {
+            try
+            {
+                $postData = $this->getRequest()->getPost();
+                $material = Mage::getModel('digidennis_workslip/material');
+
+                if( Mage::getSingleton('adminhtml/session')->getWorkslipEditId())
+                    $material->setWorkslipId(Mage::getSingleton('adminhtml/session')->getWorkslipEditId());
+
+                if( $this->getRequest()->getParam('id') )
+                    $material->load($this->getRequest()->getParam('id'));
+
+                $material->addData($postData);
+                $material->save();
+
+                Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Material'). ' ' . $this->__('saved'));
+                Mage::getSingleton('adminhtml/session')->setMaterialData(false);
+                $this->_redirect('*/*/edit', array('id' => Mage::getSingleton('adminhtml/session')->getWorkslipEditId()));
+                return;
+            }
+            catch (Exception $e)
+            {
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                Mage::getSingleton('adminhtml/session')->setMaterialData($this->getRequest()->getPost());
+                $this->_redirect('*/*/editmaterial', array('id' => $this->getRequest()->getParam('id')));
                 return;
             }
         }

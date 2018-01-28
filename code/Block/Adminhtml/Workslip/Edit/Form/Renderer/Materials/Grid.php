@@ -16,6 +16,8 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form_Renderer_Materials_
     protected function _prepareCollection()
     {
         $collection = Mage::getModel('digidennis_workslip/material')->getCollection();
+        if( Mage::getSingleton('adminhtml/session')->getWorkslipEditId() )
+            $collection->addFieldToFilter( 'workslip_id', Mage::getSingleton('adminhtml/session')->getWorkslipEditId() );
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
