@@ -22,7 +22,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
     protected function _prepareMassaction()
     {
         $this->setMassactionIdField('workslip_id');
-        $this->getMassactionBlock()->setFormFieldName('workslip');
+        //$this->getMassactionBlock()->setFormFieldName('workslip_id');
 
         $statuses = Mage::helper('digidennis_workslip')->getStates();
 
