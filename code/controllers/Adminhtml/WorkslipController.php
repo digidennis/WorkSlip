@@ -24,6 +24,9 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
     {
         $id = $this->getRequest()->getParam('id');
         $workslip = Mage::getModel('digidennis_workslip/workslip')->load($id);
+        // this is the worsklip we are currently editing lets store the id in session so we can return
+        if( $workslip->getWorkslipId() )
+            Mage::getSingleton('adminhtml/session')->setWorkslipEditId($workslip->getWorkslipId());
 
         if ($workslip->getWorkslipId() || $id == 0)
         {
@@ -37,11 +40,6 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
             $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
             $this->_addContent($this->getLayout()->createBlock('digidennis_workslip/adminhtml_workslip_edit'));
             $this->renderLayout();
-
-            // this is the worsklip we are currently editing lets store the id in session so we can retun
-            //it is currently not cleared anywhere
-            if( $workslip->getWorkslipId() )
-                Mage::getSingleton('adminhtml/session')->setWorkslipEditId($workslip->getWorkslipId());
         }
         else
         {
