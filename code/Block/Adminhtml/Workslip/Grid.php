@@ -24,7 +24,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
         $this->setMassactionIdField('workslip_id');
         $this->getMassactionBlock()->setFormFieldName('workslip');
 
-        $statuses = Mage::getHelper('digidennis_workslip')->getStates();
+        $statuses = Mage::helper('digidennis_workslip')->getStates();
 
         array_unshift($statuses, array('label'=>'', 'value'=>''));
         $this->getMassactionBlock()->addItem('status', array(
