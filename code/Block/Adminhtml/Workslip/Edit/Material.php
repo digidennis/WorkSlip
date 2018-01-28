@@ -10,7 +10,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Material extends Mage_Ad
                 'label' =>  'Back',
                 'onclick'   => 'setLocation(\'' . $this->getUrl('*/*/edit',
                         array(
-                            'id'=>Mage::registry('workslip_data')->getWorkslipEditId())
+                            'id'=>Mage::getSingleton('adminhtml/session')->getWorkslipEditId())
                     ) . '\')',
                 'class'     =>  'back'
             );
