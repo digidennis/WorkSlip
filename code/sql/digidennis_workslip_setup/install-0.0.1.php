@@ -45,7 +45,7 @@ $workslip = $installer->getConnection()->newTable( $installer->getTable('digiden
         'nullable' => false,
     ), 'Phone')
     ->addColumn('whattodo', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
-        'nullable' => false,
+        'nullable' => true,
     ), 'What To Do')
     ->addColumn('mediafiles', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
         'nullable' => true,

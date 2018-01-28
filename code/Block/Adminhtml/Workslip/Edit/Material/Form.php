@@ -28,6 +28,13 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Material_Form extends Ma
                 'required' => true,
                 'name' => 'price',
             ));
+        $fieldset->addField('cost', 'text',
+            array(
+                'label' => $this->__('Cost'),
+                'class' => 'validate-price',
+                'required' => false,
+                'name' => 'price',
+            ));
         $fieldset->addField('state', 'select',
             array(
                 'label'     => $this->__('State'),

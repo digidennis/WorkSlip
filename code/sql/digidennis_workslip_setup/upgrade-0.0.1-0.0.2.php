@@ -23,6 +23,9 @@ $material = $installer->getConnection()->newTable( $installer->getTable('digiden
     ->addColumn('price', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
         'nullable' => false,
     ), 'Price')
+    ->addColumn('cost', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
+        'nullable' => true,
+    ), 'Cost')
     ->addForeignKey(
         $installer->getFkName('digidennis_workslip/material', 'workslip_id', 'digidennis_workslip/workslip', 'workslip_id'),
         'workslip_id',

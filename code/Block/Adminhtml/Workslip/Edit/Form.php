@@ -87,8 +87,6 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
         $workfieldset->addField('whattodo', 'textarea',
             array(
                 'label' => $this->__('What To Do'),
-                'class' => 'required-entry',
-                'required' => true,
                 'name' => 'whattodo',
             ));
 
