@@ -4,6 +4,7 @@
     <adminhtml_workslip_index>
         <reference name="content">
             <block type="digidennis_workslip/adminhtml_workslip" name="workslip" />
+            <block type="digidennis_workslip/adminhtml_dashboard" name="dashboard" />
         </reference>
     </adminhtml_workslip_index>
 

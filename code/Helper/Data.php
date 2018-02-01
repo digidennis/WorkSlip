@@ -19,4 +19,9 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
             2 => $this->__('Ready'),
         ];
     }
+
+    public function getFoamStats()
+    {
+        $invoices = Mage::model('sales/order_invoice')->getCollection();
+    }
 }
