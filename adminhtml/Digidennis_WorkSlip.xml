@@ -8,4 +8,10 @@
     </adminhtml_workslip_index>
 
 
+    <adminhtml_material_index>
+        <reference name="content">
+            <block type="digidennis_workslip/adminhtml_material" name="material" />
+        </reference>
+    </adminhtml_material_index>
+
 </layout>

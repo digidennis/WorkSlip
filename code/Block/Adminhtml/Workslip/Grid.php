@@ -29,7 +29,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
         array_unshift($statuses, array('label'=>'', 'value'=>''));
         $this->getMassactionBlock()->addItem('state', array(
             'label'=> $this->__('Change State'),
-            'url'  => $this->getUrl('*/*/massStatus', array('_current'=>true)),
+            'url'  => $this->getUrl('*/*/massState', array('_current'=>true)),
             'additional' => array(
                 'visibility' => array(
                     'name' => 'state',
@@ -76,6 +76,18 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
             'align'     => 'center',
             'filter_condition_callback' => array($this, '_nameFilter'),
             'width'     => '150px',
+        ));
+
+        $this->addColumn('email', array(
+            'header'    => $this->__('E-mail'),
+            'index'     => 'email',
+            'type'      => 'text',
+        ));
+
+        $this->addColumn('phone', array(
+            'header'    => $this->__('Phone'),
+            'index'     => 'phone',
+            'type'      => 'text',
         ));
 
         $this->addColumn('state', array(

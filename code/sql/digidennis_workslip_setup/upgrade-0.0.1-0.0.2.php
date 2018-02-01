@@ -32,7 +32,7 @@ $material = $installer->getConnection()->newTable( $installer->getTable('digiden
         $installer->getTable('digidennis_workslip/workslip'),
         'workslip_id',
         ACTION_CASCADE,
-        ACTION_NO_ACTION
+        ACTION_CASCADE
     );
 
 $installer->getConnection()->createTable($material);

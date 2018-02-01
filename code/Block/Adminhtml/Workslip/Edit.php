@@ -6,10 +6,16 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit extends Mage_Adminhtml_B
     public function __construct()
     {
         $this->_addButton('add_new', array(
-            'label'   => Mage::helper('catalog')->__('Add Material'),
-            'onclick' => "editForm.submit('{$this->getUrl('*/*/editmaterial')}');",
+            'label'   => $this->__('Add Material'),
+            'onclick' => "editForm.submit('{$this->getUrl('*/material/edit')}');",
             'class'   => 'add',
             'name'    => 'addMaterialSubmit'
+        ));
+        $this->_addButton('print', array(
+            'label'   => $this->__('Print'),
+            'onclick' => "window.print();",
+            'class'   => 'save',
+            'name'    => 'print'
         ));
         parent::__construct();
         $this->_objectId = 'workslip_id';
