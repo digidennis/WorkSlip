@@ -20,8 +20,18 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
         ];
     }
 
-    public function getFoamStats()
+    public function getFoamStats($fromdate, $todate)
     {
-        $invoices = Mage::model('sales/order_invoice')->getCollection();
+        $invoices = Mage::getModel('sales/order_invoice')->getCollection()
+            ->addAttributeToFilter('created_at', array('from'=>$fromdate, 'to'=>$todate));
+        foreach ($invoices as $invoice )
+        {
+            $order = Mage::getModel('sales/order')->load($invoice->getOrderId());
+            foreach ($order->getAllItems() as $item)
+            {
+                $options = $item->getProductOptions();  
+            }
+        }
+        return $invoices;
     }
 }
