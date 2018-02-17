@@ -10,6 +10,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
                 'action' => $this->getUrl('*/*/save', array('id' => $this->getRequest()->getParam('id'))
                 ),
                 'method' => 'post',
+                'class' => 'dropzone',
                 'enctype' => 'multipart/form-data'
             )
         );
@@ -91,7 +92,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
                 'name' => 'whattodo',
             ));
 
-        $uploadFieldset = $form->addFieldset('uploadFieldset', array('legend'=> $this->__('Materials')));
+        $uploadFieldset = $form->addFieldset('uploadFieldset', array('legend'=> $this->__('Filer')));
         $uploadFieldset->addType('image', 'Digidennis_WorkSlip_Block_Adminhtml_Workslip_Helper_Image');
         $uploadFieldset->addField('workslipfiles', 'image', array(
             'name'      => 'workslipfiles[]', //declare this as array. Otherwise only one image will be uploaded

@@ -38,8 +38,8 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
             $this->_addBreadcrumb('Edit', 'Edit');
 
             $this->getLayout()->getBlock('head')->setCanLoadExtJs(true);
-            $this->_addContent($this->getLayout()->createBlock('digidennis_workslip/adminhtml_workslip_edit'));
-            $this->_addContent($this->getLayout()->createBlock('digidennis_workslip/adminhtml_material'));
+           // $this->_addContent($this->getLayout()->createBlock('digidennis_workslip/adminhtml_workslip_edit'));
+           // $this->_addContent($this->getLayout()->createBlock('digidennis_workslip/adminhtml_material'));
             $this->renderLayout();
         }
         else

@@ -4,10 +4,18 @@
     <adminhtml_workslip_index>
         <reference name="content">
             <block type="digidennis_workslip/adminhtml_workslip" name="workslip" />
-            <block type="digidennis_workslip/adminhtml_dashboard" name="dashboard" />
         </reference>
     </adminhtml_workslip_index>
 
+    <adminhtml_workslip_edit>
+        <reference name="head">
+            <action method="addJs"><script>digidennis/workslip/fineuploader/all.fine-upload.min.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="digidennis_workslip/adminhtml_workslip_edit" name="workslip.edit" />
+            <block type="digidennis_workslip/adminhtml_material" name="workslip.material" />
+        </reference>
+    </adminhtml_workslip_edit>
 
     <adminhtml_material_index>
         <reference name="content">
