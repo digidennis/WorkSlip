@@ -9,7 +9,8 @@
 
     <adminhtml_workslip_edit>
         <reference name="head">
-            <action method="addJs"><script>digidennis/workslip/fineuploader/all.fine-upload.min.js</script></action>
+            <action method="addJs"><script>digidennis/workslip/fineuploader/all.fine-uploader.min.js</script></action>
+            <action method="addCss"><stylesheet>digidennis/workslip/css/fine-uploader-new.min.css</stylesheet></action>
         </reference>
         <reference name="content">
             <block type="digidennis_workslip/adminhtml_workslip_edit" name="workslip.edit" />

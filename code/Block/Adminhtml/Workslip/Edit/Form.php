@@ -10,7 +10,6 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
                 'action' => $this->getUrl('*/*/save', array('id' => $this->getRequest()->getParam('id'))
                 ),
                 'method' => 'post',
-                'class' => 'dropzone',
                 'enctype' => 'multipart/form-data'
             )
         );
