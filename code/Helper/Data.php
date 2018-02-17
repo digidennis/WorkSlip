@@ -29,7 +29,11 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
             $order = Mage::getModel('sales/order')->load($invoice->getOrderId());
             foreach ($order->getAllItems() as $item)
             {
-                $options = $item->getProductOptions();  
+                $options = $item->getProductOptions();
+                if(key_exists('info_buyrequest', $options))
+                {
+                    $buyrequest = $options['info_buyrequest'];
+                }
             }
         }
         return $invoices;

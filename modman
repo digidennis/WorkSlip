@@ -3,3 +3,4 @@ adminhtml/Digidennis_WorkSlip.xml           app/design/adminhtml/default/default
 adminhtml/template/*                        app/design/adminhtml/default/default/template/digidennis/workslip/
 Digidennis_WorkSlip.xml                     app/etc/modules/Digidennis_WorkSlip.xml
 translations/da_DK/Digidennis_WorkSlip.csv  app/locale/da_DK/Digidennis_WorkSlip.csv
+js/*                                        js/digidennis/workslip/
