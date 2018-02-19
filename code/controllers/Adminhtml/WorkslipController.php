@@ -75,6 +75,9 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
                         case 'edit':
                             $this->_redirect('*/*/edit', array('id' => $workslipModel->getWorkslipId()));
                             return;
+                        case 'print':
+                            $this->_redirect('*/*/print', array('id' => $workslipModel->getWorkslipId()));
+                            return;
                         case 'makeorder':
                             Mage::getSingleton('core/session')->setWorkslipedOrder($workslipModel->getWorkslipId());
                             $this->_redirect('*/sales_order_create/index/');
