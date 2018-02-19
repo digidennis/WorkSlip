@@ -18,45 +18,38 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
             Mage_Core_Model_Locale::FORMAT_TYPE_LONG
         );
         $customerfieldset = $form->addFieldset('customerFieldset', array('legend'=> $this->__('Customer')));
-        $customerfieldset->addField('firstname', 'text',
+        $customerfieldset->addField('name', 'text',
             array(
-                'label' => $this->__('Firstname'),
+                'label' => $this->__('Name'),
                 'class' => 'required-entry',
                 'required' => true,
-                'name' => 'firstname',
-            ));
-        $customerfieldset->addField('lastname', 'text',
-            array(
-                'label' => $this->__('Surname'),
-                'class' => 'required-entry',
-                'required' => true,
-                'name' => 'lastname',
+                'name' => 'name',
             ));
         $customerfieldset->addField('address', 'text',
             array(
                 'label' => $this->__('Address'),
-                'class' => 'required-entry',
-                'required' => true,
+                'class' => '',
+                'required' => false,
                 'name' => 'address',
             ));
         $customerfieldset->addField('zip', 'text',
             array(
                 'label' => $this->__('Zip'),
-                'class' => 'required-entry',
-                'required' => true,
+                'class' => '',
+                'required' => false,
                 'name' => 'zip',
             ));
         $customerfieldset->addField('city', 'text',
             array(
                 'label' => $this->__('City'),
-                'class' => 'required-entry',
-                'required' => true,
+                'class' => '',
+                'required' => false,
                 'name' => 'city',
             ));
         $customerfieldset->addField('email', 'text',
             array(
                 'label' => $this->__('E-mail'),
-                'class' => 'required-entry',
+                'class' => 'required-entry validate-email',
                 'required' => true,
                 'name' => 'email',
             ));
@@ -76,7 +69,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
         ));
         $workfieldset->addField('estimateddone_date', 'date',
             array(
-                'class' => 'validate-date required-entry',
+                'class' => 'required-entry',
                 'align'=>"Bl",
                 'format' => $dateFormatIso,
                 'label' => $this->__('Estimated Done Date'),
@@ -85,6 +78,13 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
                 'name' => 'estimateddone_date',
                 'image' => $this->getSkinUrl('images/grid-cal.gif'),
             ));
+        $workfieldset->addField('offer_price', 'text',
+            array(
+                'class' => '',
+                'label' => $this->__('Tilbudspris'),
+                'required' => false,
+                'name' => 'offer_price'
+            ));
         $workfieldset->addField('whattodo', 'textarea',
             array(
                 'label' => $this->__('What To Do'),
@@ -92,13 +92,12 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
             ));
 
         $uploadFieldset = $form->addFieldset('uploadFieldset', array('legend'=> $this->__('Filer')));
-        $uploadFieldset->addType('image', 'Digidennis_WorkSlip_Block_Adminhtml_Workslip_Helper_Image');
-        $uploadFieldset->addField('workslipfiles', 'image', array(
-            'name'      => 'workslipfiles[]', //declare this as array. Otherwise only one image will be uploaded
-            'multiple'  => 'multiple', //declare input as 'multiple'
+        $uploadFieldset->addType('fineupload', 'Digidennis_WorkSlip_Block_Adminhtml_Workslip_Helper_Image');
+        $uploadFieldset->addField('workslipfiles', 'fineupload', array(
+            'name'      => 'mediafiles',
             'label'     => $this->__('Filer'),
             'title'     => $this->__('Filer'),
-            'required'  => true,
+            'required'  => false,
             'disabled'  => false
         ));
 

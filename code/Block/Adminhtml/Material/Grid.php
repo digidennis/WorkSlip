@@ -52,7 +52,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Material_Grid extends Mage_Adminhtml_B
     {
         $this->addColumn('id', array(
             'header'    => Mage::helper('digidennis_workslip')->__('#'),
-            'align'     =>'right',
+            'align'     =>'center',
             'width'     => '10px',
             'index'     => 'material_id',
             'sortable'  => false
@@ -60,7 +60,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Material_Grid extends Mage_Adminhtml_B
 
         $this->addColumn('description', array(
             'header'    => Mage::helper('digidennis_workslip')->__('Description'),
-            'align'     =>'center',
+            'align'     =>'left',
             'index'     => 'description',
             'type'     => 'text',
             'width'     => '150px',
@@ -70,16 +70,16 @@ class Digidennis_WorkSlip_Block_Adminhtml_Material_Grid extends Mage_Adminhtml_B
         $this->addColumn('price', array(
             'header'    => Mage::helper('digidennis_workslip')->__('Price'),
             'index'     => 'price',
-            'type'      => 'currency',
+            'type'      => 'text',
             'currency'  => 'currency_code',
-            'align'     => 'center',
+            'align'     => 'left',
             'width'     => '80px',
             'sortable'  => false
         ));
 
         $this->addColumn('state', array(
             'header'    => Mage::helper('digidennis_workslip')->__('State'),
-            'align'     =>'center',
+            'align'     =>'left',
             'index'     => 'state',
             'type'  => 'options',
             'width' => '100px',

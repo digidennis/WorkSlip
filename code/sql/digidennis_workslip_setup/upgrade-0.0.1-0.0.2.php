@@ -21,7 +21,7 @@ $material = $installer->getConnection()->newTable( $installer->getTable('digiden
         'nullable' => false,
     ), 'Description')
     ->addColumn('price', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
-        'nullable' => false,
+        'nullable' => true,
     ), 'Price')
     ->addColumn('cost', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
         'nullable' => true,

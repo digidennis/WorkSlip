@@ -23,20 +23,17 @@ $workslip = $installer->getConnection()->newTable( $installer->getTable('digiden
     ->addColumn('estimateddone_date', Varien_Db_Ddl_Table::TYPE_DATE, null, array(
         'nullable' => false
     ), 'Estimated Done Date')
-    ->addColumn('firstname', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
+    ->addColumn('name', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
         'nullable' => false,
-    ), 'Firstname')
-    ->addColumn('lastname', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
-        'nullable' => false,
-    ), 'Lastname')
+    ), 'Name')
     ->addColumn('address', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
-        'nullable' => false,
+        'nullable' => true,
     ), 'Address')
     ->addColumn('zip', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
-        'nullable' => false,
+        'nullable' => true,
     ), 'Zip')
     ->addColumn('city', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
-        'nullable' => false,
+        'nullable' => true,
     ), 'City')
     ->addColumn('email', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
         'nullable' => false,
@@ -50,6 +47,9 @@ $workslip = $installer->getConnection()->newTable( $installer->getTable('digiden
     ->addColumn('mediafiles', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
         'nullable' => true,
     ), 'Media Files')
+    ->addColumn('offer_price', Varien_Db_Ddl_Table::TYPE_TEXT, null, array(
+        'nullable' => true,
+    ), 'Offer Price')
     ->addForeignKey(
         $installer->getFkName('digidennis_workslip/workslip', 'order_id', 'sales/order', 'entity_id'),
         'order_id',

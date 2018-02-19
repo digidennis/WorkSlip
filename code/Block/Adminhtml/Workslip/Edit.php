@@ -11,12 +11,24 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit extends Mage_Adminhtml_B
             'class'   => 'add',
             'name'    => 'addMaterialSubmit'
         ));
+
         $this->_addButton('print', array(
             'label'   => $this->__('Print'),
-            'onclick' => "window.print();",
+            'onclick' => "saveAndPrint();",
             'class'   => 'save',
             'name'    => 'print'
-        ));
+        ),1,30);
+
+        $this->_addButton('makeorder', array(
+            'label'   => $this->__('Opret Ordre'),
+            'onclick' => "saveAndMakeOrder();",
+            'class'   => 'go',
+            'name'    => 'makeorder'
+        ),2,60);
+
+        $this->_formScripts[] = " function saveAndPrint(){ editForm.submit($('edit_form').action + 'back/print/') } ";
+        $this->_formScripts[] = " function saveAndMakeOrder(){ editForm.submit($('edit_form').action + 'back/makeorder/') } ";
+
         parent::__construct();
         $this->_objectId = 'workslip_id';
         //you will notice that assigns the same blockGroup the Grid Container

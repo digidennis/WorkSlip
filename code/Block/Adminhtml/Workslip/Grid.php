@@ -69,12 +69,10 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
         ));
 
         $this->addColumn('name', array(
-            'header'    => Mage::helper('digidennis_workslip')->__('Customer'),
-            'index'     => array('firstname', 'lastname'),
-            'type'      => 'concat',
-            'separator' => ' ',
+            'header'    => Mage::helper('digidennis_workslip')->__('Name'),
+            'index'     => 'name',
+            'type'      => 'text',
             'align'     => 'center',
-            'filter_condition_callback' => array($this, '_nameFilter'),
             'width'     => '150px',
         ));
 
@@ -90,6 +88,12 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
             'type'      => 'text',
         ));
 
+        $this->addColumn('offer_price', array(
+            'header'    => $this->__('Tilbudspris'),
+            'index'     => 'offer_price',
+            'type'      => 'price',
+        ));
+
         $this->addColumn('state', array(
             'header'    => Mage::helper('digidennis_workslip')->__('State'),
             'align'     =>'center',
@@ -102,14 +106,6 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
         return parent::_prepareColumns();
     }
 
-    protected function _nameFilter($collection, $column)
-    {
-        if (!$value = $column->getFilter()->getValue()) {
-            return $this;
-        }
-        $collection->getSelect()->where("CONCAT(main_table.firstname, \" \", main_table.lastname )like ?", "%$value%");
-        return $this;
-    }
 
     public function getRowUrl($row)
     {

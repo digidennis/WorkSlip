@@ -7,9 +7,9 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Helper_Image extends Varien_D
 
     public function getElementHtml()
     {
-        $html = "<div id=\"fine-uploader\"></div>
+        $html = "<div style='width: 100%;' id=\"fine-uploader\"></div>
         <script type=\"text/template\" id=\"qq-template\">
-            <div class=\"qq-uploader-selector qq-uploader\" qq-drop-area-text=\"Drop files here\">
+            <div class=\"qq-uploader-selector qq-uploader\" qq-drop-area-text=\"Træk og Slip\">
                 <div class=\"qq-total-progress-bar-container-selector qq-total-progress-bar-container\">
                     <div role=\"progressbar\" aria-valuenow=\"0\" aria-valuemin=\"0\" aria-valuemax=\"100\" class=\"qq-total-progress-bar-selector qq-progress-bar qq-total-progress-bar\"></div>
                 </div>
@@ -17,10 +17,10 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Helper_Image extends Varien_D
                     <span class=\"qq-upload-drop-area-text-selector\"></span>
                 </div>
                 <div class=\"qq-upload-button-selector qq-upload-button\">
-                    <div>Upload a file</div>
+                    <div>Upload fil</div>
                 </div>
                 <span class=\"qq-drop-processing-selector qq-drop-processing\">
-                    <span>Processing dropped files...</span>
+                    <span>Beregner...</span>
                     <span class=\"qq-drop-processing-spinner-selector qq-drop-processing-spinner\"></span>
                 </span>
                 <ul class=\"qq-upload-list-selector qq-upload-list\" aria-live=\"polite\" aria-relevant=\"additions removals\">
@@ -34,9 +34,9 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Helper_Image extends Varien_D
                         <span class=\"qq-edit-filename-icon-selector qq-edit-filename-icon\" aria-label=\"Edit filename\"></span>
                         <input class=\"qq-edit-filename-selector qq-edit-filename\" tabindex=\"0\" type=\"text\">
                         <span class=\"qq-upload-size-selector qq-upload-size\"></span>
-                        <button type=\"button\" class=\"qq-btn qq-upload-cancel-selector qq-upload-cancel\">Cancel</button>
-                        <button type=\"button\" class=\"qq-btn qq-upload-retry-selector qq-upload-retry\">Retry</button>
-                        <button type=\"button\" class=\"qq-btn qq-upload-delete-selector qq-upload-delete\">Delete</button>
+                        <button type=\"button\" class=\"qq-btn qq-upload-cancel-selector qq-upload-cancel\">Annuller</button>
+                        <button type=\"button\" class=\"qq-btn qq-upload-retry-selector qq-upload-retry\">Prøv igen</button>
+                        <button type=\"button\" class=\"qq-btn qq-upload-delete-selector qq-upload-delete\">Slet</button>
                         <span role=\"status\" class=\"qq-upload-status-text-selector qq-upload-status-text\"></span>
                     </li>
                 </ul>
@@ -44,7 +44,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Helper_Image extends Varien_D
                 <dialog class=\"qq-alert-dialog-selector\">
                     <div class=\"qq-dialog-message-selector\"></div>
                     <div class=\"qq-dialog-buttons\">
-                        <button type=\"button\" class=\"qq-cancel-button-selector\">Close</button>
+                        <button type=\"button\" class=\"qq-cancel-button-selector\">Luk</button>
                     </div>
                 </dialog>
 
@@ -68,8 +68,32 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Helper_Image extends Varien_D
         </script>
         <script>
             var uploader = new qq.FineUploader({
-                element: document.getElementById('fine-uploader')
-            }).setForm('edit-form');
+                element: document.getElementById('fine-uploader'),
+                debug: true,
+                validation:{
+                    allowedExtensions: ['pdf', 'jpg', 'png', 'jpeg'],
+                    acceptFiles: 'application/pdf,image/jpeg,image/png',
+                    itemLimit: 10,
+                    sizeLimit: 4000000
+                },
+                session: {
+                    endpoint: '" .Mage::helper("adminhtml")->getUrl('*/*/imageinit') . "',
+                },
+                request: {
+                    endpoint: '" .Mage::getUrl('*/*/imageupload') . "',
+                    params: {
+                        form_key: \"" . Mage::getSingleton('core/session')->getFormKey() . "\"
+                    }
+                },
+                deleteFile: {
+                    enabled: true,
+                    endpoint: '" .Mage::getUrl('*/*/imagedelete') . "',
+                    method: 'POST',
+                    params: {
+                        form_key: \"" . Mage::getSingleton('core/session')->getFormKey() . "\"
+                    }
+                }
+            });
         </script>";
         return $html;
     }

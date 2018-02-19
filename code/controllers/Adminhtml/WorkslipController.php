@@ -62,12 +62,26 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
                 if( $workslipModel->getCreateDate() === null ){
                     $workslipModel->setCreateDate(Mage::getSingleton('core/date')->gmtDate(now()));
                 }
-
                 $workslipModel->addData($postData);
                 $workslipModel->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess($this->__('WorkSlip'). ' ' . $this->__('saved'));
                 Mage::getSingleton('adminhtml/session')->setWorkslipData(false);
+                Mage::getSingleton('adminhtml/session')->unsFineuploadFiles();
+
+                // check if 'Save and Continue'
+                if ($this->getRequest()->getParam('back')) {
+                    switch( $backparam = $this->getRequest()->getParam('back') ){
+                        case 'edit':
+                            $this->_redirect('*/*/edit', array('id' => $workslipModel->getWorkslipId()));
+                            return;
+                        case 'makeorder':
+                            Mage::getSingleton('core/session')->setWorkslipedOrder($workslipModel->getWorkslipId());
+                            $this->_redirect('*/sales_order_create/index/');
+                            return;
+                    }
+                }
+
                 $this->_redirect('*/*/');
                 return;
 
@@ -93,7 +107,13 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
             try
             {
                 $model = Mage::getModel('digidennis_workslip/workslip');
-                $model->setId($this->getRequest()->getParam('id'))->delete();
+                $model->load($this->getRequest()->getParam('id'));
+                $mediafiles = unserialize($model->getMediafiles());
+                $path = Mage::getBaseDir('media') . DS . 'uploads' . DS;
+                foreach ($mediafiles as $file){
+                    unlink($path . $file['path']);
+                }
+                $model->delete();
                 Mage::getSingleton('adminhtml/session')->addSuccess('successfully deleted');
                 $this->_redirect('*/*/');
             }
@@ -130,5 +150,162 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
             }
         }
         $this->_redirect('*/*/');
+    }
+
+    public function imageuploadAction()
+    {
+        $type = 'qqfile';
+        $jsondata = array(
+            'success' => true,
+        );
+        if(isset($_FILES[$type]['name']) && $_FILES[$type]['name'] != '') {
+            try {
+                $uploader = new Varien_File_Uploader($type);
+                $uploader->setAllowedExtensions(['pdf', 'jpg', 'png', 'jpeg']);
+                $uploader->setAllowRenameFiles(true);
+                $uploader->setFilesDispersion(true);
+                $path = Mage::getBaseDir('media') . DS . 'uploads' . DS;
+                $workslip = Mage::getModel('digidennis_workslip/workslip')->load(
+                    Mage::getSingleton('adminhtml/session')->getWorkslipEditId()
+                );
+                if($workslip->getWorkslipId()){
+                    $uploader->save($path, $_FILES[$type]['name'] );
+                    $object = array(
+                        'uuid' => $this->getRequest()->getParams()['qquuid'],
+                        'name' => $this->getRequest()->getParams()['qqfilename'],
+                        'size' => $this->getRequest()->getParams()['qqtotalfilesize'],
+                        'path' => $uploader->getUploadedFileName(),
+                    );
+                    $mediafiles = unserialize($workslip->getMediafiles());
+                    if(is_null($mediafiles) || !is_array($mediafiles))
+                        $mediafiles = array();
+                    $mediafiles[] = $object;
+                    $workslip->setMediafiles(serialize($mediafiles));
+                    $workslip->save();
+                }
+            } catch (Exception $e) {
+                $jsondata['success'] = false;
+                $jsondata['message'] = $e->getMessage();
+            }
+        }
+        $this->getResponse()->setHeader('Content-type', 'application/json');
+        $this->getResponse()->setBody(json_encode($jsondata));
+    }
+
+    public function imagedeleteAction()
+    {
+        $uuid = $this->getRequest()->getParam('qquuid');
+        $workslip = Mage::getModel('digidennis_workslip/workslip')->load(
+            Mage::getSingleton('adminhtml/session')->getWorkslipEditId()
+        );
+        if($uuid && $workslip->getWorkslipId()){
+            $mediafiles = unserialize($workslip->getMediafiles());
+            $keep = array();
+            $path = Mage::getBaseDir('media') . DS . 'uploads' . DS;
+            foreach ($mediafiles as $file){
+                if( $file['uuid'] === $uuid ){
+                    unlink($path . $file['path']);
+                } else {
+                    $keep[] = $file;
+                }
+            }
+            $workslip->setMediafiles(serialize($keep));
+            $workslip->save();
+        }
+        $this->getResponse()->setHeader('Content-type', 'application/json');
+        $this->getResponse()->setBody(json_encode(['success'=>true]));
+    }
+
+    public function imageinitAction()
+    {
+        $jsondata = array();
+        if( $id = Mage::getSingleton('adminhtml/session')->getWorkslipEditId()){
+            $workslip = Mage::getModel('digidennis_workslip/workslip')->load($id);
+            if( $workslip->getWorkslipId() ){
+                $mediafiles = unserialize($workslip->getMediafiles());
+                foreach ($mediafiles as $file){
+                    $object = new StdClass();
+                    $object->name = $file['name'];
+                    $object->uuid = $file['uuid'];
+                    $object->size = $file['size'];
+                    $jsondata[] = $object;
+                }
+            }
+        };
+        $this->getResponse()->setHeader('Content-type', 'application/json');
+        $this->getResponse()->setBody(json_encode($jsondata));
+    }
+
+    public function printAction()
+    {
+        if ($workslipId = $this->getRequest()->getParam('id')) {
+            if ($workslip = Mage::getModel('digidennis_workslip/workslip')->load($workslipId)) {
+                $pdf = Mage::getModel('digidennis_workslip/workslip_pdf')->getPdf(array($workslip));
+                $this->_prepareDownloadResponse('arbejdsseddel_' . $workslipId .'.pdf', $pdf->render(), 'application/pdf');
+            }
+        }
+        else {
+            $this->_forward('noRoute');
+        }
+    }
+
+    protected function _prepareDownloadResponse(
+        $fileName,
+        $content,
+        $contentType = 'application/oct-stream',
+        $contentLength = null)
+    {
+        $session = Mage::getSingleton('admin/session');
+        if ($session->isFirstPageAfterLogin()) {
+            $this->_redirect($session->getUser()->getStartupPageUrl());
+            return $this;
+        }
+
+        $isFile = false;
+        $file   = null;
+        if (is_array($content)) {
+            if (!isset($content['type']) || !isset($content['value'])) {
+                return $this;
+            }
+            if ($content['type'] == 'filename') {
+                clearstatcache();
+                $isFile         = true;
+                $file           = $content['value'];
+                $contentLength  = filesize($file);
+            }
+        }
+
+        $this->getResponse()
+            ->setHttpResponseCode(200)
+            ->setHeader('Pragma', 'public', true)
+            ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
+            ->setHeader('Content-type', $contentType, true)
+            ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength, true)
+            ->setHeader('Content-Disposition', 'inline; filename="'.$fileName.'"', true)
+            ->setHeader('Accept-Ranges: bytes',true)
+            ->setHeader('Last-Modified', date('r'), true);
+
+        if (!is_null($content)) {
+            if ($isFile) {
+                $this->getResponse()->clearBody();
+                $this->getResponse()->sendHeaders();
+
+                $ioAdapter = new Varien_Io_File();
+                $ioAdapter->open(array('path' => $ioAdapter->dirname($file)));
+                $ioAdapter->streamOpen($file, 'r');
+                while ($buffer = $ioAdapter->streamRead()) {
+                    print $buffer;
+                }
+                $ioAdapter->streamClose();
+                if (!empty($content['rm'])) {
+                    $ioAdapter->rm($file);
+                }
+
+                exit(0);
+            } else {
+                $this->getResponse()->setBody($content);
+            }
+        }
+        return $this;
     }
 }

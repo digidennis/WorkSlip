@@ -20,17 +20,17 @@
     </admin>
 
     <adminhtml>
-        <!--events>
-            <sales_order_shipment_save_before>
+        <events>
+            <create_order_session_quote_initialized>
                 <observers>
-                    <digidennis_dkshipping_sales_order_shipment_save_before>
+                    <digidennis_dkshipping_sales_order_create_process_data_before>
                         <type>singleton</type>
-                        <class>dkshipping/observer</class>
-                        <method>salesOrderShipmentSaveBefore</method>
-                    </digidennis_dkshipping_sales_order_shipment_save_before>
+                        <class>digidennis_workslip/observer</class>
+                        <method>salesOrderCreateProcessData</method>
+                    </digidennis_dkshipping_sales_order_create_process_data_before>
                 </observers>
-            </sales_order_shipment_save_before>
-        </events-->
+            </create_order_session_quote_initialized>
+        </events>
         <layout>
             <updates>
                 <digidennis_workslip>

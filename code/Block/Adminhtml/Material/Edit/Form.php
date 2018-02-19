@@ -24,8 +24,8 @@ class Digidennis_WorkSlip_Block_Adminhtml_Material_Edit_Form extends Mage_Adminh
         $fieldset->addField('price', 'text',
             array(
                 'label' => $this->__('Price'),
-                'class' => 'required-entry validate-number',
-                'required' => true,
+                'class' => 'validate-number',
+                'required' => false,
                 'name' => 'price',
             ));
         $fieldset->addField('cost', 'text',
