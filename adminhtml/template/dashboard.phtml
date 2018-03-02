@@ -1,4 +1,28 @@
-<div>
-    <?php $this->changeDateRange('2018-01-01'); ?>
-    <?php echo $this->getFoamStats(); ?>
+<div class="content-header">
+    <table cellspacing="0">
+        <tr>
+            <td><h3 class="head-dashboard"><?php echo $this->__('Dashboard') ?></h3></td>
+        </tr>
+    </table>
+</div>
+<div class="dashboard-container">
+    <?php echo $this->getChildHtml('store_switcher') ?>
+    <table cellspacing="25" width="100%">
+        <tr>
+            <td><?php echo $this->getChildHtml('sales') ?>
+                <div class="entry-edit">
+                    <div class="entry-edit-head"><h4><?php echo $this->__('Klar til bestilling') ?></h4></div>
+                    <fieldset>
+                        <p><b>Antal: </b><?php echo $this->getReadyToProcess(); ?><?php echo $this->getButtonHtml( 'Print', '*/*/shipmentmakeprint', 'go right'); ?></p>
+                    </fieldset>
+                </div>
+            </td>
+            <td>
+                <div class="entry-edit" style="border:1px solid #ccc;">
+                    <div class="entry-edit-head"><h4><?php echo $this->__('Last 5 Search Terms') ?></h4></div>
+                    <fieldset class="np"><?php echo $this->getChildHtml('lastSearches'); ?></fieldset>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>

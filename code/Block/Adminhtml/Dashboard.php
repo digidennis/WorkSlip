@@ -1,27 +1,26 @@
 <?php
 
-class Digidennis_WorkSlip_Block_Adminhtml_Dashboard extends Mage_Core_Block_Template
+class Digidennis_WorkSlip_Block_Adminhtml_Dashboard extends Mage_Adminhtml_Block_Template
 {
-
-    protected  $startdate;
-    protected  $enddate;
-
     protected function _construct()
     {
-        $this->startdate = date('Y-m-01 00:00:00',strtotime('this month'));
-        $this->enddate = date('Y-m-t 23:59:59',strtotime('this month'));
         parent::_construct();
         $this->setTemplate('digidennis/workslip/dashboard.phtml');
     }
 
-    public function getFoamStats()
-    {
-        return Mage::helper('digidennis_workslip')->getFoamStats($this->startdate, $this->enddate)->count();
+    public function getReadyToProcess(){
+        return Mage::helper('digidennis_workslip')->getProcessingOrdersWithoutShipment()->getSize();
     }
 
-    public function changeDateRange($strdate)
+    public function getButtonHtml($label, $path, $class)
     {
-        $this->startdate = date('Y-m-01 00:00:00', strtotime($strdate));
-        $this->enddate = date('Y-m-t 23:59:00', strtotime($strdate));
+        $button = Mage::app()->getLayout()->createBlock('adminhtml/widget_button');
+        $button->setData(array(
+            'label' => $this->__($label),
+            'onclick' => 'setLocation(\'' . Mage::helper("adminhtml")->getUrl($path) .'\');',
+            'type' => 'submit',
+            'class' => $class
+        ));
+        echo $button->toHtml();
     }
 }

@@ -12,6 +12,13 @@
                     <action>adminhtml/workslip/index</action>
                 </workslipgrid>
             </children>
+            <children>
+                <dashboard>
+                    <title>Dashboard</title>
+                    <sort_order>1</sort_order>
+                    <action>adminhtml/backender/index</action>
+                </dashboard>
+            </children>
         </digidennis>
     </menu>
     <acl>
@@ -25,6 +32,9 @@
                             <workslipgrid>
                                 <title>Workslip List</title>
                             </workslipgrid>
+                            <dashboard>
+                                <title>Dashboard</title>
+                            </dashboard>
                         </children>
                     </digidennis>
                 </children>

@@ -1,6 +1,8 @@
 <?php
 
-class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Controller_Action
+require_once Mage::getModuleDir('controllers', 'Digidennis_WorkSlip') . DS . 'Adminhtml/AbstractController.php';
+
+class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Digidennis_WorkSlip_Adminhtml_AbstractController
 {
 
     public function indexAction()
@@ -164,7 +166,7 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
         if(isset($_FILES[$type]['name']) && $_FILES[$type]['name'] != '') {
             try {
                 $uploader = new Varien_File_Uploader($type);
-                $uploader->setAllowedExtensions(['pdf', 'jpg', 'png', 'jpeg']);
+                $uploader->setAllowedExtensions(['jpg', 'png', 'jpeg']);
                 $uploader->setAllowRenameFiles(true);
                 $uploader->setFilesDispersion(true);
                 $path = Mage::getBaseDir('media') . DS . 'uploads' . DS;
@@ -252,63 +254,4 @@ class Digidennis_WorkSlip_Adminhtml_WorkslipController extends Mage_Adminhtml_Co
         }
     }
 
-    protected function _prepareDownloadResponse(
-        $fileName,
-        $content,
-        $contentType = 'application/oct-stream',
-        $contentLength = null)
-    {
-        $session = Mage::getSingleton('admin/session');
-        if ($session->isFirstPageAfterLogin()) {
-            $this->_redirect($session->getUser()->getStartupPageUrl());
-            return $this;
-        }
-
-        $isFile = false;
-        $file   = null;
-        if (is_array($content)) {
-            if (!isset($content['type']) || !isset($content['value'])) {
-                return $this;
-            }
-            if ($content['type'] == 'filename') {
-                clearstatcache();
-                $isFile         = true;
-                $file           = $content['value'];
-                $contentLength  = filesize($file);
-            }
-        }
-
-        $this->getResponse()
-            ->setHttpResponseCode(200)
-            ->setHeader('Pragma', 'public', true)
-            ->setHeader('Cache-Control', 'must-revalidate, post-check=0, pre-check=0', true)
-            ->setHeader('Content-type', $contentType, true)
-            ->setHeader('Content-Length', is_null($contentLength) ? strlen($content) : $contentLength, true)
-            ->setHeader('Content-Disposition', 'inline; filename="'.$fileName.'"', true)
-            ->setHeader('Accept-Ranges: bytes',true)
-            ->setHeader('Last-Modified', date('r'), true);
-
-        if (!is_null($content)) {
-            if ($isFile) {
-                $this->getResponse()->clearBody();
-                $this->getResponse()->sendHeaders();
-
-                $ioAdapter = new Varien_Io_File();
-                $ioAdapter->open(array('path' => $ioAdapter->dirname($file)));
-                $ioAdapter->streamOpen($file, 'r');
-                while ($buffer = $ioAdapter->streamRead()) {
-                    print $buffer;
-                }
-                $ioAdapter->streamClose();
-                if (!empty($content['rm'])) {
-                    $ioAdapter->rm($file);
-                }
-
-                exit(0);
-            } else {
-                $this->getResponse()->setBody($content);
-            }
-        }
-        return $this;
-    }
 }

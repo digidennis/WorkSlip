@@ -24,4 +24,10 @@
         </reference>
     </adminhtml_material_index>
 
+    <adminhtml_backender_index>
+        <reference name="content">
+            <block type="digidennis_workslip/adminhtml_dashboard" name="dashboard" />
+        </reference>
+    </adminhtml_backender_index>
+
 </layout>

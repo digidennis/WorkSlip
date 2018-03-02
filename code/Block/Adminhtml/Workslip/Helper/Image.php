@@ -69,9 +69,8 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Helper_Image extends Varien_D
         <script>
             var uploader = new qq.FineUploader({
                 element: document.getElementById('fine-uploader'),
-                debug: true,
                 validation:{
-                    allowedExtensions: ['pdf', 'jpg', 'png', 'jpeg'],
+                    allowedExtensions: ['jpg', 'png', 'jpeg'],
                     acceptFiles: 'application/pdf,image/jpeg,image/png',
                     itemLimit: 10,
                     sizeLimit: 4000000

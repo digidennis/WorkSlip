@@ -27,7 +27,7 @@ class Digidennis_WorkSlip_Model_Workslip_Pdf extends Mage_Sales_Model_Order_Pdf_
             //NUMBER & DATE
             $this->y = 779;
             $page->drawText($workslip->getWorkslipId(), 147.36,$this->y, 'UTF-8' );
-            $page->drawText(Mage::helper('core')->formatDate($workslip->getCreatedAt(), 'long', false), 147.36,$this->y=761.42, 'UTF-8' );
+            $page->drawText(Mage::helper('core')->formatDate($workslip->getCreateDate(), 'long', false), 147.36,$this->y=761.42, 'UTF-8' );
 
             //TOPINFO
             $leftstop = 110;
@@ -65,14 +65,7 @@ class Digidennis_WorkSlip_Model_Workslip_Pdf extends Mage_Sales_Model_Order_Pdf_
             $path = Mage::getBaseDir('media') . DS . 'uploads' . DS;
             foreach ($mediafiles as $mediafile ){
                 $mimetype = mime_content_type($path . $mediafile['path'] );
-                switch ( $mimetype ) {
-                    case 'application/pdf':
-                        $this->_insertPdfMedia($path . $mediafile['path'], $workslip->getWorkslipId() );
-                        break;
-                    case 'image/jpeg':
-                        $this->_insertImageMedia($path . $mediafile['path'], $workslip->getWorkslipId());
-                        break;
-                }
+                $this->_insertImageMedia($path . $mediafile['path'], $workslip->getWorkslipId());
             }
         }
         $this->_afterGetPdf();
@@ -116,18 +109,6 @@ class Digidennis_WorkSlip_Model_Workslip_Pdf extends Mage_Sales_Model_Order_Pdf_
         $font = Zend_Pdf_Font::fontWithName(Zend_Pdf_Font::FONT_HELVETICA_ITALIC);
         $object->setFont($font, $size);
         return $font;
-    }
-
-    protected  function _insertPdfMedia($file, $workslipid )
-    {
-        $tomerge = Zend_Pdf::load($file);
-        $extractor = new Zend_Pdf_Resource_Extractor();
-        foreach ($tomerge->pages as $mergepage ) {
-            $page = $extractor->clonePage( $mergepage );
-            $this->_setFontRegular($page, 10);
-            $page->drawText( 'Seddel: ' . $workslipid, 10,820, 'UTF-8' );
-            $this->_getPdf()->pages[] = $page;
-        }
     }
 
     protected  function _insertImageMedia($file, $workslipid )
