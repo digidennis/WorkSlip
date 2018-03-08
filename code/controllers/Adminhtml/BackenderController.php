@@ -52,6 +52,12 @@ class Digidennis_WorkSlip_Adminhtml_BackenderController extends Digidennis_WorkS
 
     }
 
+    public function orderedstatsAction()
+    {
+        $block = $this->getLayout()->createBlock('digidennis_workslip/adminhtml_dashboard_orderedstats');
+        $this->getResponse()->setHeader('Content-type', 'application/json');
+        $this->getResponse()->setBody($block->toHtml());
+    }
     private function _getItemQtyArray( Mage_Sales_Model_Order $order)
     {
         $array = array();
@@ -66,6 +72,7 @@ class Digidennis_WorkSlip_Adminhtml_BackenderController extends Digidennis_WorkS
      *
      * @param array $labelsContent
      * @return Zend_Pdf
+     * @throws
      */
     protected function _combineLabelsPdf(array $labelsContent)
     {

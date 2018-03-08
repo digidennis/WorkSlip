@@ -26,7 +26,9 @@
 
     <adminhtml_backender_index>
         <reference name="content">
-            <block type="digidennis_workslip/adminhtml_dashboard" name="dashboard" />
+            <block type="digidennis_workslip/adminhtml_dashboard" name="dashboard" >
+                <block type="digidennis_workslip/adminhtml_dashboard_orderedstats" name="dashboard.orderedstats" />
+            </block>
         </reference>
     </adminhtml_backender_index>
 

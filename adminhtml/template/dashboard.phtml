@@ -6,7 +6,6 @@
     </table>
 </div>
 <div class="dashboard-container">
-    <?php echo $this->getChildHtml('store_switcher') ?>
     <table cellspacing="25" width="100%">
         <tr>
             <td><?php echo $this->getChildHtml('sales') ?>
@@ -19,9 +18,12 @@
             </td>
             <td>
                 <div class="entry-edit" style="border:1px solid #ccc;">
-                    <div class="entry-edit-head"><h4><?php echo $this->__('Last 5 Search Terms') ?></h4></div>
-                    <fieldset class="np"><?php echo $this->getChildHtml('lastSearches'); ?></fieldset>
+                    <div class="entry-edit-head"><h4><?php echo $this->__('Bestilt') ?></h4></div>
+                    <?php echo $this->getChildHtml('dashboard.orderedstats'); ?>
                 </div>
+                <!--script>
+                    new Ajax.Updater('dashboard-orderdstats', '<?php echo Mage::helper('adminhtml')->getUrl('*/*/orderedstats'); ?>' );
+                </script-->
             </td>
         </tr>
     </table>
