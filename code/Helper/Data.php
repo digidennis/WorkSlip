@@ -20,17 +20,27 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
         ];
     }
 
-    public function getOrderedStats($fromdate = null, $todate = null )
+    public function getOrderedStats($fromdate = null, $todate = null, $onlydimesioned = true )
     {
-        $now = new \DateTime("now");
-        $past = new \DateTime("now");
-        $past->sub(new DateInterval('P1M'));
+        if( !is_null($fromdate) )
+            $from = $fromdate;
+        else {
+            $from = new \DateTime("now");
+            $from->sub(new DateInterval('P1M'));
+        }
+
+        if(!is_null($todate))
+            $to = $todate;
+        else
+            $to = new \DateTime("now");
+
+
 
         $itemhash = array();
         $invoices = Mage::getModel('sales/order_invoice')->getCollection()
             ->addAttributeToFilter('created_at', array(
-                'from'=>$past->format('Y-m-d H:i:s'),
-                'to'=>$now->format('Y-m-d H:i:s'))
+                'from'=>$from->format('Y-m-d H:i:s'),
+                'to'=>$to->format('Y-m-d H:i:s'))
             );
         foreach ($invoices as $invoice )
         {
@@ -38,6 +48,9 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
             //FOR ALL ITEMS
             foreach ($order->getAllItems() as $item)
             {
+                if($onlydimesioned && !key_exists('dimensions', $item->getProductOptions()['info_buyRequest']))
+                    continue;
+
                 $qty = intval($item->getQtyInvoiced());
                 $id = $item->getProductId();
                 $globalvolume = Mage::helper('digidennis_dimensionit')
@@ -52,14 +65,14 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
                         'options' => array(),
                     ];
                     if( $globalvolume ){
-                        $itemhash[$id]['volume'] = $globalvolume['volume'];
+                        $itemhash[$id]['volume'] = ($qty*$globalvolume['volume']);
                         $itemhash[$id]['unit'] = $globalvolume['unit'];
                     }
                 } else {
                     //ELLERS TÆL OP
                     $itemhash[$id]['qty'] += $qty;
                     if( $globalvolume ){
-                        $itemhash[$id]['volume'] += $globalvolume['volume'];
+                        $itemhash[$id]['volume'] += ($qty*$globalvolume['volume']);
                     }
                 }
 
@@ -89,9 +102,9 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
                                 ->getFirstItem();
 
                             if( key_exists($type->getOptionTypeId(), $itemhash[$id]['options'][$option['option_id']]['values'])){
-                                $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()]['qty']++;
+                                $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()]['qty'] += $qty;
                                 if($typevolume)
-                                    $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()]['volume'] += $typevolume['volume'];
+                                    $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()]['volume'] += ($qty*$typevolume['volume']);
                             } else {
                                 $optionvalue = array();
                                 $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()] = [
@@ -99,7 +112,7 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
                                     'qty' => 1,
                                     ];
                                 if($typevolume){
-                                    $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()]['volume'] = $typevolume['volume'];
+                                    $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()]['volume'] = ($qty*$typevolume['volume']);
                                     $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()]['volumeunit'] = $typevolume['unit'];
                                 }
                             }

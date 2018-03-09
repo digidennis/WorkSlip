@@ -10,7 +10,8 @@ class Digidennis_WorkSlip_Block_Adminhtml_Dashboard_Orderedstats extends Mage_Ad
 
     public function getOrderedStats()
     {
-        $stats = Mage::helper('digidennis_workslip')->getOrderedStats();
+        $stats = Mage::helper('digidennis_workslip')->getOrderedStats($this->getFromDate(), $this->getToDate());
         return $stats;
     }
+
 }
