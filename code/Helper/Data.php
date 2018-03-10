@@ -42,6 +42,7 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
                 'from'=>$from->format('Y-m-d H:i:s'),
                 'to'=>$to->format('Y-m-d H:i:s'))
             );
+
         foreach ($invoices as $invoice )
         {
             $order = Mage::getModel('sales/order')->load($invoice->getOrderId());
@@ -53,8 +54,11 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
 
                 $qty = intval($item->getQtyInvoiced());
                 $id = $item->getProductId();
+
                 $globalvolume = Mage::helper('digidennis_dimensionit')
                     ->getGlobalVolumeOfOrderItem($item);
+                $globalcost = Mage::helper('digidennis_dimensionit')
+                    ->getGlobalCostOfOrderItem($item);
 
                 //HVIS IKKE ITEM HASHED
                 if( !key_exists($id, $itemhash) ) {
@@ -68,11 +72,17 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
                         $itemhash[$id]['volume'] = ($qty*$globalvolume['volume']);
                         $itemhash[$id]['unit'] = $globalvolume['unit'];
                     }
+                    if( $globalcost ){
+                        $itemhash[$id]['cost'] = ($qty*$globalcost);
+                    }
                 } else {
                     //ELLERS TÆL OP
                     $itemhash[$id]['qty'] += $qty;
                     if( $globalvolume ){
                         $itemhash[$id]['volume'] += ($qty*$globalvolume['volume']);
+                    }
+                    if( $globalcost ){
+                        $itemhash[$id]['cost'] += ($qty*$globalcost);
                     }
                 }
 
@@ -95,6 +105,9 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
                             $typevolume = Mage::helper('digidennis_dimensionit')
                                 ->getOptionTypeVolumeOfOrderItem($item,$value);
 
+                            $typecost = Mage::helper('digidennis_dimensionit')
+                                ->getOptionTypeCostOfOrderItem($item,$value);
+
                             $type = Mage::getModel('catalog/product_option')
                                 ->load($option['option_id'])
                                 ->getValuesCollection()
@@ -105,6 +118,8 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
                                 $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()]['qty'] += $qty;
                                 if($typevolume)
                                     $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()]['volume'] += ($qty*$typevolume['volume']);
+                                if($typecost)
+                                    $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()]['cost'] += ($qty*$typecost);
                             } else {
                                 $optionvalue = array();
                                 $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()] = [
@@ -114,6 +129,9 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
                                 if($typevolume){
                                     $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()]['volume'] = ($qty*$typevolume['volume']);
                                     $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()]['volumeunit'] = $typevolume['unit'];
+                                }
+                                if($typecost){
+                                    $itemhash[$id]['options'][$option['option_id']]['values'][$type->getOptionTypeId()]['cost'] = ($qty*$typecost);
                                 }
                             }
                         }
