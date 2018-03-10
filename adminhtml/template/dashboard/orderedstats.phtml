@@ -13,7 +13,7 @@
                 <th style="text-align: right;border-bottom:1px solid #fff;padding-top: 5px;background-color: #ddd;"><?php echo $item['qty']; ?></th>
                 <th style="border-bottom:1px solid #fff;padding-top: 5px;background-color: #ddd;"><?php echo $item['name']; ?></th>
                 <th style="border-bottom:1px solid #fff;padding-top: 5px;background-color: #ddd;"><?php if($item['volume'] >0): ?><?php echo $item['volume']; ?> <?php echo $item['unit']; ?><?php endif;?></th>
-                <th style="border-bottom:1px solid #fff;padding-top: 5px;background-color: #ddd;"><?php if($item['cost'] >0): ?><?php echo $item['cost']; ?><?php endif;?></th>
+                <th style="border-bottom:1px solid #fff;padding-top: 5px;background-color: #ddd;"><?php if($item['cost'] >0): ?><?php echo floor( $item['cost'] ) . ' ' . Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?><?php endif;?></th>
             </tr>
         </thead>
         <?php $_totalcost += $item['cost']; ?>
