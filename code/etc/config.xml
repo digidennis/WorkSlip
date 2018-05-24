@@ -47,6 +47,9 @@
                 </Digidennis_WorkSlip>
             </modules>
         </translate>
+        <blocks>
+
+        </blocks>
     </adminhtml>
 
     <global>
@@ -54,6 +57,11 @@
             <digidennis_workslip>
                 <class>Digidennis_WorkSlip_Block</class>
             </digidennis_workslip>
+            <adminhtml>
+                <rewrite>
+                    <sales_order_grid>Digidennis_WorkSlip_Block_Adminhtml_Sales_Order_Grid</sales_order_grid>
+                </rewrite>
+            </adminhtml>
         </blocks>
         <models>
             <digidennis_workslip>

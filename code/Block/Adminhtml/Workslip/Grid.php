@@ -66,6 +66,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
             'index'     => 'estimateddone_date',
             'type'     => 'date',
             'width'     => '50px',
+            'format'    => Mage::app()->getLocale()->getDateFormat(Mage_Core_Model_Locale::FORMAT_TYPE_SHORT )
         ));
 
         $this->addColumn('name', array(

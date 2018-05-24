@@ -15,32 +15,45 @@ class Digidennis_WorkSlip_Adminhtml_BackenderController extends Digidennis_WorkS
 
     public function shipmentmakeprintAction()
     {
-        $ordercollection = $this->getHelper()->getProcessingOrdersWithoutShipment();
+        $order_ids = $this->getRequest()->getPost()['order_ids'];
         $toprint = array();
-        foreach ($ordercollection as $order) {
-            $order = $order->loadByIncrementId($order->getIncrementId());
-            if( $order->canShip()) {
+        foreach($order_ids as $order_id)
+        {
+            $order = Mage::getModel('sales/order')->load($order_id);
+            if( $order->canShip() && !$order->getShipmentsCollection()->count())
+            {
                 try {
-                    $shipment = Mage::getModel('sales/service_order', $order)
-                        ->prepareShipment($this->_getItemQtyArray($order));
+                    $convertor = Mage::getModel('sales/convert_order');
+                    $shipment = $convertor->toShipment($order);
+                    foreach ($order->getAllItems() as $orderItem) {
+                        if ($orderItem->getQtyToShip() && !$orderItem->getIsVirtual()) {
+                            $item = $convertor->itemToShipmentItem($orderItem);
+                            $item->setQty($orderItem->getQtyToShip());
+                            $shipment->addItem($item);
+                        }
+                    }
+                    $shipment->register();
+                    $order->setIsInProcess(true);
+
                     $shipment->getOrder()->setCustomerNoteNotify(false);
                     $shipment->setShipmentStatus(1);
                     $shipment->getOrder()->setIsInProcess(true);
-                    $transactionSave = Mage::getModel('core/resource_transaction')
+                    Mage::getModel('core/resource_transaction')
                         ->addObject($shipment)
-                        ->addObject($shipment->getOrder())
+                        ->addObject($order)
                         ->save();
                     $toprint[] = $shipment;
 
-                } catch (Mage_Core_Exception $e) {
-
+                } catch (Mage_Core_Exception $e)
+                {
                     $this->_getSession()->addError($e->getMessage());
-                    $this->_redirect('*/*/index');
+                    $this->_redirect('*/sales_order/index');
 
-                } catch (Exception $e) {
+                } catch (Exception $e)
+                {
                     Mage::logException($e);
                     $this->_getSession()->addError($this->__('Cannot save shipment.'));
-                    $this->_redirect('*/*/index');
+                    $this->_redirect('*/sales_order/index');
                 }
             }
         }
@@ -49,7 +62,7 @@ class Digidennis_WorkSlip_Adminhtml_BackenderController extends Digidennis_WorkS
             $this->_prepareDownloadResponse('ShippingLabels.pdf', $pdf->render(), 'application/pdf');
             return;
         }
-
+        $this->_redirect('*/sales_order/index');
     }
 
     public function orderedstatsAction()
@@ -59,15 +72,6 @@ class Digidennis_WorkSlip_Adminhtml_BackenderController extends Digidennis_WorkS
         $block->setToDate(new DateTime($this->getRequest()->getParam('todate') . '00:00:00' ));
         $this->getResponse()->setHeader('Content-type', 'application/json');
         $this->getResponse()->setBody($block->toHtml());
-    }
-
-    private function _getItemQtyArray( Mage_Sales_Model_Order $order)
-    {
-        $array = array();
-        foreach ($order->getAllVisibleItems() as $item ) {
-            $array[ "{$item->getItemId()}" ] = $item->getQtyToShip();
-        }
-        return $array;
     }
 
     /**

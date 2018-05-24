@@ -15,7 +15,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
         );
         $this->setForm($form);
         $dateFormatIso = Mage::app()->getLocale()->getDateFormat(
-            Mage_Core_Model_Locale::FORMAT_TYPE_LONG
+            Mage_Core_Model_Locale::FORMAT_TYPE_SHORT
         );
         $customerfieldset = $form->addFieldset('customerFieldset', array('legend'=> $this->__('Customer')));
         $customerfieldset->addField('name', 'text',
@@ -74,7 +74,6 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
                 'format' => $dateFormatIso,
                 'label' => $this->__('Estimated Done Date'),
                 'required' => true,
-                'time' => false,
                 'name' => 'estimateddone_date',
                 'image' => $this->getSkinUrl('images/grid-cal.gif'),
             ));
@@ -84,6 +83,13 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
                 'label' => $this->__('Tilbudspris'),
                 'required' => false,
                 'name' => 'offer_price'
+            ));
+        $workfieldset->addField('estimated_hours', 'text',
+            array(
+                'class' => 'validate-number',
+                'label' => $this->__('Systue Timer'),
+                'required' => false,
+                'name' => 'estimated_hours'
             ));
         $workfieldset->addField('whattodo', 'textarea',
             array(
