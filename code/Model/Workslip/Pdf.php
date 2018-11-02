@@ -31,34 +31,35 @@ class Digidennis_WorkSlip_Model_Workslip_Pdf extends Mage_Sales_Model_Order_Pdf_
 
             //TOPINFO
             $leftstop = 110;
-            $page->drawText($workslip->getName(), $leftstop+15, $this->y=700,'UTF-8' );
-            $page->drawText($workslip->getEmail(), $leftstop+15, $this->y -= 30.5, 'UTF-8' );
-            $page->drawText($workslip->getAddress(), $leftstop+15, $this->y -= 30.5, 'UTF-8' );
-            $page->drawText($workslip->getZip(), $leftstop+15, $this->y -= 30.5, 'UTF-8' );
+            $page->drawText($workslip->getName(), $leftstop+15, $this->y=697,'UTF-8' );
+            $page->drawText($workslip->getEmail(), $leftstop+15, $this->y -= 28, 'UTF-8' );
+            $page->drawText($workslip->getAddress(), $leftstop+15, $this->y -= 28, 'UTF-8' );
+            $page->drawText($workslip->getZip(), $leftstop+15, $this->y -= 28, 'UTF-8' );
             $page->drawText($workslip->getCity(), $leftstop+48, $this->y, 'UTF-8' );
-            $page->drawText($workslip->getPhone(), $leftstop+15, $this->y-=30.5, 'UTF-8' );
+            $page->drawText($workslip->getPhone(), $leftstop+15, $this->y-=28, 'UTF-8' );
             $page->drawText(Mage::helper('core')->formatDate($workslip->getEstimateddoneDate(), 'long', false), $leftstop+280, $this->y, 'UTF-8' );
-            $page->drawText(Mage::helper('core')->currency($workslip->getOfferPrice(), true, false), $leftstop+280, $this->y + 30.5, 'UTF-8' );
+            $page->drawText(Mage::helper('core')->currency($workslip->getOfferPrice(), true, false), $leftstop+280, $this->y + 28, 'UTF-8' );
+            $page->drawText($workslip->getEstimatedHours(),$leftstop+280, $this->y - 30, 'UTF-8' );
 
             //THEWORK
             $thework = preg_split('/\n|\r\n?/', $workslip->getWhattodo());
-            $this->y = 520;
+            $this->y = 500;
             $leftstop = 80;
             foreach ( $thework as $workline ){
                 $splitlines = Mage::helper('core/string')->str_split($workline,70, true);
                 foreach ($splitlines as $finalline)
-                    $page->drawText($finalline, $leftstop, $this->y -= 30.5, 'UTF-8' );
+                    $page->drawText($finalline, $leftstop, $this->y -= 28, 'UTF-8' );
             }
 
             //MATERIALS
             $materials = Mage::getModel('digidennis_workslip/material')
                 ->getCollection()
                 ->getWorkslipMaterials($workslip->getWorkslipId());
-            $this->y = 280;
+            $this->y = 245;
             foreach ($materials as $material ) {
                 $splitlines = Mage::helper('core/string')->str_split($material->getDescription(),70, true);
                 foreach ($splitlines as $finalline)
-                    $page->drawText($finalline, $leftstop, $this->y -= 30.5, 'UTF-8' );
+                    $page->drawText($finalline, $leftstop, $this->y -= 28, 'UTF-8' );
             }
 
             $mediafiles = unserialize($workslip->getMediafiles());

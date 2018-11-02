@@ -6,8 +6,8 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Grid extends Mage_Adminhtml_B
     {
         parent::__construct();
         $this->setId('workslipGrid');
-        $this->setDefaultSort('workslip_id');
-        $this->setDefaultDir('ASC');
+        $this->setDefaultSort('create_date');
+        $this->setDefaultDir('DESC');
         $this->setSaveParametersInSession(true);
         $this->setNoFilterMassactionColumn(true);
     }

@@ -34,8 +34,6 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
         else
             $to = new \DateTime("now");
 
-
-
         $itemhash = array();
         $invoices = Mage::getModel('sales/order_invoice')->getCollection()
             ->addAttributeToFilter('created_at', array(
@@ -142,17 +140,4 @@ class Digidennis_WorkSlip_Helper_Data extends Mage_Core_Helper_Abstract
         return $itemhash;
     }
 
-    public function getProcessingOrdersWithoutShipment()
-    {
-        $collection = Mage::getModel('sales/order')
-            ->getCollection()
-            ->addFieldToFilter('state', Mage_Sales_Model_Order::STATE_PROCESSING)
-            ->addFieldToFilter('shipment.entity_id',  array('null' => true));
-        $collection->getSelect()->joinLeft( array(
-            'shipment'=> sales_flat_shipment),
-            'shipment.order_id = main_table.entity_id',
-            array('shipment.entity_id')
-        );
-        return $collection;
-    }
 }

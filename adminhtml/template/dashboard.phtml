@@ -6,40 +6,26 @@
     </table>
 </div>
 <div class="dashboard-container">
-    <table cellspacing="25" width="100%">
-        <tr>
-            <td><?php echo $this->getChildHtml('sales') ?>
-                <div class="entry-edit">
-                    <div class="entry-edit-head"><h4><?php echo $this->__('Klar til bestilling') ?></h4></div>
-                    <fieldset>
-                        <p><b>Antal: </b><?php echo $this->getReadyToProcess(); ?><?php echo $this->getButtonHtml( 'Print', '*/*/shipmentmakeprint', 'go right'); ?></p>
-                    </fieldset>
-                </div>
-            </td>
-            <td>
-                <div class="entry-edit" style="border:1px solid #ccc;">
-                    <div class="entry-edit-head"><h4><?php echo $this->__('Bestilt') ?></h4></div>
-                    <fieldset style="margin-bottom: 0;">
-                        <form id="updatestats" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('*/*/orderedstats'); ?>">
-                            <?php echo $this->getForm()->getHtml(); ?>
-                            <?php echo $this->getStatsButtonHtml(); ?>
-                        </form>
-                    </fieldset>
-                    <div id="digidennis-dashboard-orderedstats"><?php echo $this->getChildHtml('dashboard.orderedstats'); ?></div>
-                </div>
-                <script>
-                    function updatestats(){
-                        var form = $('updatestats');
-                        new Ajax.Request( form.action, {
-                            method: 'POST',
-                            parameters:form.serialize(),
-                            onComplete: function(transport) {
-                                $('digidennis-dashboard-orderedstats').update(transport.responseText);
-                            }
-                        });
-                    }
-                </script>
-            </td>
-        </tr>
-    </table>
+    <div class="entry-edit" style="border:1px solid #ccc;">
+        <div class="entry-edit-head"><h4><?php echo $this->__('Bestilt') ?></h4></div>
+        <fieldset style="margin-bottom: 0;">
+            <form id="updatestats" method="post" action="<?php echo Mage::helper('adminhtml')->getUrl('*/*/orderedstats'); ?>">
+                <?php echo $this->getForm()->getHtml(); ?>
+                <?php echo $this->getStatsButtonHtml(); ?>
+            </form>
+        </fieldset>
+        <div id="digidennis-dashboard-orderedstats"><?php echo $this->getChildHtml('dashboard.orderedstats'); ?></div>
+    </div>
+    <script>
+        function updatestats(){
+            var form = $('updatestats');
+            new Ajax.Request( form.action, {
+                method: 'POST',
+                parameters:form.serialize(),
+                onComplete: function(transport) {
+                    $('digidennis-dashboard-orderedstats').update(transport.responseText);
+                }
+            });
+        }
+    </script>
 </div>

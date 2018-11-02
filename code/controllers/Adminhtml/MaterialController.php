@@ -34,7 +34,7 @@ class Digidennis_WorkSlip_Adminhtml_MaterialController extends Mage_Adminhtml_Co
                     }
                 }
 
-                $workslipModel->addData($postData);
+                $workslipModel->addData($this->_filterDates($postData, array("estimateddone_date")));
                 $workslipModel->save();
                 Mage::getSingleton('adminhtml/session')->setWorkslipEditId($workslipModel->getWorkslipId());
 

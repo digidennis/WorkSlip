@@ -12,6 +12,15 @@ class Digidennis_WorkSlip_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtm
     {
         parent::_prepareColumns();
 
+        $this->removeColumn('created_at');
+        $this->addColumnAfter('created_at', array(
+            'header' => Mage::helper('sales')->__('Purchased On'),
+            'index' => 'created_at',
+            'filter_index' => 'main_table.created_at',
+            'type' => 'datetime',
+            'width' => '100px',
+        ), 'real_order_id');
+
         $this->addColumnAfter('shipment_action', array(
             'header'=> Mage::helper('sales')->__('Shipment'),
             'width' => '50px',
@@ -28,6 +37,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtm
             'index' => 'shipment_id',
             'sortable' => false,
             'frame_callback' => array($this, 'decorateRow'),
+            'header_css_class'=>'a-center',
             'filter' => false,
         ), 'created_at');
     }
@@ -35,7 +45,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtm
     public function decorateRow($value, $row, $column, $isExport){
         if(is_null($row->getData('shipment_id')))
             return '';
-        return $value;
+        return '<center>' . $value . '</center>';
     }
 
     protected function _prepareMassaction()
@@ -57,6 +67,9 @@ class Digidennis_WorkSlip_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtm
             'main_table.entity_id = shipment.order_id',
             array('shipment_id' => 'shipment.entity_id')
         );
+        $collection->getSelect()->group('main_table.entity_id');
+        //$collection->setOrder('shipment_id', 'DESC');
+
         $this->setCollection($collection);
         if ($this->getCollection()) {
 
@@ -65,7 +78,6 @@ class Digidennis_WorkSlip_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtm
             $columnId = $this->getParam($this->getVarNameSort(), $this->_defaultSort);
             $dir      = $this->getParam($this->getVarNameDir(), $this->_defaultDir);
             $filter   = $this->getParam($this->getVarNameFilter(), null);
-
             if (is_null($filter)) {
                 $filter = $this->_defaultFilter;
             }
@@ -84,7 +96,7 @@ class Digidennis_WorkSlip_Block_Adminhtml_Sales_Order_Grid extends Mage_Adminhtm
             if (isset($this->_columns[$columnId]) && $this->_columns[$columnId]->getIndex()) {
                 $dir = (strtolower($dir)=='desc') ? 'desc' : 'asc';
                 $this->_columns[$columnId]->setDir($dir);
-                $this->_setCollectionOrder($this->_columns[$columnId]);
+                $this->_setCollectionOrder( $this->_columns[$columnId]);
             }
 
             if (!$this->_isExport) {

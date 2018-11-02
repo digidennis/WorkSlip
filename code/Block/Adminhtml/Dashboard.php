@@ -10,9 +10,6 @@ class Digidennis_WorkSlip_Block_Adminhtml_Dashboard extends Mage_Adminhtml_Block
         $this->setTemplate('digidennis/workslip/dashboard.phtml');
     }
 
-    public function getReadyToProcess(){
-        return Mage::helper('digidennis_workslip')->getProcessingOrdersWithoutShipment()->getSize();
-    }
 
     public function getButtonHtml($label, $path, $class)
     {

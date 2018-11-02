@@ -68,8 +68,8 @@ class Digidennis_WorkSlip_Adminhtml_BackenderController extends Digidennis_WorkS
     public function orderedstatsAction()
     {
         $block = $this->getLayout()->createBlock('digidennis_workslip/adminhtml_dashboard_orderedstats');
-        $block->setFromDate(new DateTime($this->getRequest()->getParam('fromdate') . '00:00:00'));
-        $block->setToDate(new DateTime($this->getRequest()->getParam('todate') . '00:00:00' ));
+        $block->setFromDate(new DateTime($this->getRequest()->getParam('fromdate') . ' 00:00:00'));
+        $block->setToDate(new DateTime($this->getRequest()->getParam('todate') . ' 23:59:59' ));
         $this->getResponse()->setHeader('Content-type', 'application/json');
         $this->getResponse()->setBody($block->toHtml());
     }

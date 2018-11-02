@@ -91,6 +91,20 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
                 'required' => false,
                 'name' => 'estimated_hours'
             ));
+        $workfieldset->addField('material_return', 'checkbox',
+            array(
+                'label' => $this->__('Matriale Retur'),
+                'onclick'   => 'this.value = this.checked ? 1 : 0;',
+                'required' => false,
+                'name' => 'material_return'
+            ));
+        $workfieldset->addField('template_return', 'checkbox',
+            array(
+                'label' => $this->__('Skabelon Retur'),
+                'required' => false,
+                'onclick'   => 'this.value = this.checked ? 1 : 0;',
+                'name' => 'template_return'
+            ));
         $workfieldset->addField('whattodo', 'textarea',
             array(
                 'label' => $this->__('What To Do'),
@@ -110,6 +124,10 @@ class Digidennis_WorkSlip_Block_Adminhtml_Workslip_Edit_Form extends Mage_Adminh
         if ( Mage::registry('workslip_data') )
         {
             $form->setValues(Mage::registry('workslip_data')->getData());
+            $matcheck = Mage::registry('workslip_data')->getMaterialReturn()==='1' ? true:false;
+            $tempcheck = Mage::registry('workslip_data')->getTemplateReturn()==='1' ? true:false;
+            $form->getElement('material_return')->setIsChecked($matcheck);
+            $form->getElement('template_return')->setIsChecked($tempcheck);
         }
         $form->setUseContainer(true);
         $this->setForm($form);
